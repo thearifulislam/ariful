@@ -1,0 +1,43 @@
+# Dependencies
+/node_modules
+/bun.lockb
+
+# Build files
+/dist
+/build
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Firebase
+firebase.json
+.firebaserc
+firestore.rules
+firestore.indexes.json
+*.firebase.js 
+
+# Editor-specific files
+.vscode/
+.idea/
+
+# OS-generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Vercel
+.vercel/
