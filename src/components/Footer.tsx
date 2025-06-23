@@ -17,7 +17,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-green text-white pt-20 pb-10">
+    <footer className="bg-black-soft text-white pt-20 pb-10">
       <div className="container mx-auto px-4 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-10">
           {/* Logo & About */}
@@ -26,7 +26,7 @@ const Footer = () => {
               href="#hero"
               className="text-xl md:text-2xl font-bold mb-4 inline-block"
             >
-              <span className="text-yellow">Ariful</span>UI
+              <span className="text-yellow">Ariful</span>GFX
             </a>
             <p className="text-white/80 mt-4">
               Crafting beautiful and intuitive user interfaces that make digital experiences 
@@ -145,8 +145,13 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="pt-10 border-t border-white/20 text-center text-white/60">
-          <p>Copyright © 2025 Ariful Islam. All Rights Reserved.</p>
+        <div className="pt-10 border-t border-white/20 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+          <p className="text-white/60">Copyright © {new Date().getFullYear()} Ariful Islam. All Rights Reserved.</p>
+          <div className="flex gap-6">
+            <a href="/privacy" className="text-white/60 hover:text-yellow transition-colors">Privacy Policy</a>
+            <a href="/terms" className="text-white/60 hover:text-yellow transition-colors">Terms of Service</a>
+            <a href="/cookies" className="text-white/60 hover:text-yellow transition-colors">Cookie Policy</a>
+          </div>
         </div>
       </div>
     </footer>

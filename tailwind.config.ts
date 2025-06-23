@@ -62,7 +62,7 @@ export default {
 					DEFAULT: '#F6A300',
 				},
 				black: {
-					soft: '#1A1A1A',
+					soft: '#1f2937',
 				},
 				orange: {
 					pastel: '#FFB183',

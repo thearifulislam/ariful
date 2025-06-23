@@ -103,7 +103,7 @@ const Navbar = () => {
   });
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-blue-600 to-purple-600 shadow-lg">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-black-soft shadow-lg">
       <div className="container mx-auto px-4 md:px-8 flex items-center min-h-[64px]">
         {/* Logo */}
         <a
@@ -185,7 +185,7 @@ const Navbar = () => {
 
       {/* Mobile Nav Slide-in */}
       {isOpen && (
-        <div className="md:hidden bg-gradient-to-b from-blue-600 to-purple-600 border-t border-white/10">
+        <div className="md:hidden bg-black-soft border-t border-gray-800">
           <div className="px-4 py-4 space-y-3">
             {navLinks.map((link, idx) => (
               <Link
