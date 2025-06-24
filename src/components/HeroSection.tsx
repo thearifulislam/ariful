@@ -169,12 +169,12 @@ const HeroSection = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.4 }}
                         whileHover={{ y: -4, scale: 1.05 }}
-                        className="bg-white/95 backdrop-blur-sm p-3 rounded-xl shadow-lg hover:shadow-xl cursor-pointer transition-all duration-300"
+                        className="bg-white/95 backdrop-blur-sm p-3 rounded-xl shadow-lg hover:shadow-xl cursor-pointer transition-all duration-0"
             >
-                        <div className="h-8 w-8 bg-blue-100 rounded-lg mb-2 flex items-center justify-center transition-colors duration-300 group-hover:bg-blue-200">
-                          <div className="w-4 h-4 bg-blue-500 rounded-md transition-all duration-300 group-hover:scale-110" />
+                        <div className="h-8 w-8 bg-blue-100 rounded-lg mb-2 flex items-center justify-center transition-colors duration-0 group-hover:bg-blue-200">
+                          <div className="w-4 h-4 bg-blue-500 rounded-md transition-all duration-0 group-hover:scale-110" />
                         </div>
-                        <div className="text-sm font-medium text-gray-900 transition-colors duration-300 group-hover:text-blue-600">UI/UX</div>
+                        <div className="text-sm font-medium text-gray-900 transition-colors duration-0 group-hover:text-blue-600">UI/UX</div>
                         <div className="text-xs text-gray-600">Expert</div>
                       </motion.div>
 
@@ -184,12 +184,12 @@ const HeroSection = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.5 }}
                         whileHover={{ y: -4, scale: 1.05 }}
-                        className="bg-white/95 backdrop-blur-sm p-3 rounded-xl shadow-lg hover:shadow-xl cursor-pointer transition-all duration-300"
+                        className="bg-white/95 backdrop-blur-sm p-3 rounded-xl shadow-lg hover:shadow-xl cursor-pointer transition-all duration-0"
                       >
-                        <div className="h-8 w-8 bg-purple-100 rounded-lg mb-2 flex items-center justify-center transition-colors duration-300 group-hover:bg-purple-200">
-                          <div className="w-4 h-4 bg-purple-500 rounded-md transition-all duration-300 group-hover:scale-110" />
+                        <div className="h-8 w-8 bg-purple-100 rounded-lg mb-2 flex items-center justify-center transition-colors duration-0 group-hover:bg-purple-200">
+                          <div className="w-4 h-4 bg-purple-500 rounded-md transition-all duration-0 group-hover:scale-110" />
                         </div>
-                        <div className="text-sm font-medium text-gray-900 transition-colors duration-300 group-hover:text-purple-600">Dev</div>
+                        <div className="text-sm font-medium text-gray-900 transition-colors duration-0 group-hover:text-purple-600">Dev</div>
                         <div className="text-xs text-gray-600">Advanced</div>
                       </motion.div>
 
@@ -199,12 +199,12 @@ const HeroSection = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.6 }}
                         whileHover={{ y: -4, scale: 1.05 }}
-                        className="bg-white/95 backdrop-blur-sm p-3 rounded-xl shadow-lg hover:shadow-xl cursor-pointer transition-all duration-300"
+                        className="bg-white/95 backdrop-blur-sm p-3 rounded-xl shadow-lg hover:shadow-xl cursor-pointer transition-all duration-0"
                       >
-                        <div className="h-8 w-8 bg-pink-100 rounded-lg mb-2 flex items-center justify-center transition-colors duration-300 group-hover:bg-pink-200">
-                          <div className="w-4 h-4 bg-pink-500 rounded-md transition-all duration-300 group-hover:scale-110" />
+                        <div className="h-8 w-8 bg-pink-100 rounded-lg mb-2 flex items-center justify-center transition-colors duration-0 group-hover:bg-pink-200">
+                          <div className="w-4 h-4 bg-pink-500 rounded-md transition-all duration-0 group-hover:scale-110" />
                         </div>
-                        <div className="text-sm font-medium text-gray-900 transition-colors duration-300 group-hover:text-pink-600">Brand</div>
+                        <div className="text-sm font-medium text-gray-900 transition-colors duration-0 group-hover:text-pink-600">Brand</div>
                         <div className="text-xs text-gray-600">Pro</div>
                       </motion.div>
                     </div>

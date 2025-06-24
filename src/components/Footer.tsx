@@ -17,7 +17,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-black-soft text-white pt-20 pb-10">
+    <footer id="footer" className="bg-black-soft text-white pt-20 pb-10">
       <div className="container mx-auto px-4 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-10">
           {/* Logo & About */}
@@ -26,7 +26,7 @@ const Footer = () => {
               href="#hero"
               className="text-xl md:text-2xl font-bold mb-4 inline-block"
             >
-              <span className="text-yellow">Ariful</span>GFX
+              <span className="text-amber-200">Ariful</span>GFX
             </a>
             <p className="text-white/80 mt-4">
               Crafting beautiful and intuitive user interfaces that make digital experiences 
@@ -35,31 +35,31 @@ const Footer = () => {
             <div className="flex space-x-4 mt-6">
               <a
                 href="https://www.facebook.com/arifulislamofficialprofile/"
-                className="bg-white/10 p-2 rounded-full hover:bg-yellow hover:text-black-soft transition-all duration-300"
+                className="bg-white/10 p-2 rounded-full hover:bg-[#fefefe] hover:text-black-soft transition-all duration-300"
               >
                 <FaFacebookF className="h-5 w-5" />
               </a>
               <a
                 href="https://www.instagram.com/_md._ariful_islam/"
-                className="bg-white/10 p-2 rounded-full hover:bg-yellow hover:text-black-soft transition-all duration-300"
+                className="bg-white/10 p-2 rounded-full hover:bg-[#fefefe] hover:text-black-soft transition-all duration-300"
               >
                 <FaInstagram className="h-5 w-5" />
               </a>
               <a
                 href="https://www.linkedin.com/in/arifulcreatorstudio/"
-                className="bg-white/10 p-2 rounded-full hover:bg-yellow hover:text-black-soft transition-all duration-300"
+                className="bg-white/10 p-2 rounded-full hover:bg-[#fefefe] hover:text-black-soft transition-all duration-300"
               >
                 <FaLinkedinIn className="h-5 w-5" />
               </a>
               <a
                 href="https://behance.net/arifulcreatorstudio"
-                className="bg-white/10 p-2 rounded-full hover:bg-yellow hover:text-black-soft transition-all duration-300"
+                className="bg-white/10 p-2 rounded-full hover:bg-[#fefefe] hover:text-black-soft transition-all duration-300"
               >
                 <FaBehance className="h-5 w-5" />
               </a>
               <a
                 href="https://dribbble.com/arifulcreatorstudio"
-                className="bg-white/10 p-2 rounded-full hover:bg-yellow hover:text-black-soft transition-all duration-300"
+                className="bg-white/10 p-2 rounded-full hover:bg-[#fefefe] hover:text-black-soft transition-all duration-300"
               >
                 <FaDribbble className="h-5 w-5" />
               </a>
@@ -74,7 +74,7 @@ const Footer = () => {
                 <li key={index}>
                   <a
                     href={link.href}
-                    className="text-white/80 hover:text-yellow transition-colors duration-300"
+                    className="text-white/80 hover:text-[#fefefe] transition-colors duration-300"
                   >
                     {link.name}
                   </a>
@@ -90,7 +90,7 @@ const Footer = () => {
               <li>
                 <a
                   href="/services/landing-page-ui"
-                  className="text-white/80 hover:text-yellow transition-colors duration-300"
+                  className="text-white/80 hover:text-[#fefefe] transition-colors duration-300"
                 >
                   Landing Page UI
                 </a>
@@ -98,7 +98,7 @@ const Footer = () => {
               <li>
                 <a
                   href="/services/website-ui"
-                  className="text-white/80 hover:text-yellow transition-colors duration-300"
+                  className="text-white/80 hover:text-[#fefefe] transition-colors duration-300"
                 >
                   Website UI
                 </a>
@@ -106,7 +106,7 @@ const Footer = () => {
               <li>
                 <a
                   href="/services/dashboard-ui"
-                  className="text-white/80 hover:text-yellow transition-colors duration-300"
+                  className="text-white/80 hover:text-[#fefefe] transition-colors duration-300"
                 >
                   Dashboard UI
                 </a>
@@ -123,7 +123,7 @@ const Footer = () => {
                 <span className="text-yellow mr-3">Email:</span>
                 <a
                   href="mailto:acs.arifulislam@gmail.com"
-                  className="text-white/80 hover:text-yellow transition-colors duration-300"
+                  className="text-white/80 hover:text-[#fefefe] transition-colors duration-300"
                 >
                   acs.arifulislam@gmail.com
                 </a>
@@ -132,7 +132,7 @@ const Footer = () => {
                 <span className="text-yellow mr-3">Phone:</span>
                 <a
                   href="tel:+8801938434733"
-                  className="text-white/80 hover:text-yellow transition-colors duration-300"
+                  className="text-white/80 hover:text-[#fefefe] transition-colors duration-300"
                 >
                   +880 1938-434733
                 </a>
@@ -148,9 +148,9 @@ const Footer = () => {
         <div className="pt-10 border-t border-white/20 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
           <p className="text-white/60">Copyright © {new Date().getFullYear()} Ariful Islam. All Rights Reserved.</p>
           <div className="flex gap-6">
-            <a href="/privacy" className="text-white/60 hover:text-yellow transition-colors">Privacy Policy</a>
-            <a href="/terms" className="text-white/60 hover:text-yellow transition-colors">Terms of Service</a>
-            <a href="/cookies" className="text-white/60 hover:text-yellow transition-colors">Cookie Policy</a>
+            <a href="/privacy" className="text-white/60 hover:text-[#fefefe] transition-colors">Privacy Policy</a>
+            <a href="/terms" className="text-white/60 hover:text-[#fefefe] transition-colors">Terms of Service</a>
+            <a href="/cookies" className="text-white/60 hover:text-[#fefefe] transition-colors">Cookie Policy</a>
           </div>
         </div>
       </div>

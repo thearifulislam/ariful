@@ -14,7 +14,7 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <Seo 
-        title="Home - Brand Identity & UI/UX Designer"
+        title="Ariful - Brand Identity Designer"
         description="Welcome to Ariful GFX. A passionate designer crafting unique brand identities, logos, and UI/UX solutions that make businesses stand out."
         keywords="brand identity, logo design, ui/ux, graphics design, Ariful Islam, portfolio"
       />

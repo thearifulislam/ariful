@@ -20,6 +20,11 @@ const FloatingButtons = () => {
       const observer = new IntersectionObserver(
         ([entry]) => {
           setIsFooterVisible(entry.isIntersecting);
+          if (entry.isIntersecting) {
+            console.log('Footer is visible, back to top button should change!');
+          } else {
+            console.log('Footer is NOT visible.');
+          }
         },
         { threshold: 0.1 } // Trigger when 10% of the footer is visible
       );
@@ -41,8 +46,8 @@ const FloatingButtons = () => {
   };
 
   const backToTopClasses = isFooterVisible
-    ? "bg-white text-indigo-600 hover:bg-gray-200"
-    : "bg-gray-900 text-white hover:bg-gray-800";
+    ? "bg-white text-indigo-600 border border-indigo-600 hover:bg-gray-100 transition-all duration-300"
+    : "bg-gray-900 text-white border border-transparent hover:bg-gray-800 transition-all duration-300";
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-4">
