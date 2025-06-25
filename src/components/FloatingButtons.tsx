@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
 import { ChevronUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 
 const FloatingButtons = () => {
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [isFooterVisible, setIsFooterVisible] = useState(false);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const pollingIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,29 +18,44 @@ const FloatingButtons = () => {
 
     window.addEventListener('scroll', handleScroll);
     
-    // Intersection Observer for the footer
-    const footer = document.getElementById('footer');
-    if (footer) {
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          setIsFooterVisible(entry.isIntersecting);
-          if (entry.isIntersecting) {
-            console.log('Footer is visible, back to top button should change!');
-          } else {
-            console.log('Footer is NOT visible.');
-          }
-        },
-        { threshold: 0.1 } // Trigger when 10% of the footer is visible
-      );
-      observer.observe(footer);
-      return () => {
-        window.removeEventListener('scroll', handleScroll);
-        observer.disconnect();
-      };
+    // Helper to observe the footer
+    const observeFooter = () => {
+      const footer = document.getElementById('footer');
+      if (footer && !observerRef.current) {
+        observerRef.current = new IntersectionObserver(
+          ([entry]) => {
+            setIsFooterVisible(entry.isIntersecting);
+          },
+          { threshold: 0.1 }
+        );
+        observerRef.current.observe(footer);
+        return true;
+      }
+      return false;
+    };
+
+    // Try to observe immediately on every route change
+    if (!observeFooter()) {
+      pollingIntervalRef.current = setInterval(() => {
+        if (observeFooter() && pollingIntervalRef.current) {
+          clearInterval(pollingIntervalRef.current);
+          pollingIntervalRef.current = null;
+        }
+      }, 200);
     }
 
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+        observerRef.current = null;
+      }
+      if (pollingIntervalRef.current) {
+        clearInterval(pollingIntervalRef.current);
+        pollingIntervalRef.current = null;
+      }
+    };
+  }, [location]);
 
   const scrollToTop = () => {
     window.scrollTo({

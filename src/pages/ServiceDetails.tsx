@@ -1979,12 +1979,6 @@ const ServiceDetails = () => {
                       <h3 className="font-bold text-gray-900 text-lg mb-3 group-hover:text-[#1f2937] transition-colors">
                         {item.title}
                       </h3>
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-500">View Project</span>
-                        <div className="w-8 h-8 bg-gradient-to-r from-[#1f2937] to-[#374151] rounded-full flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
-                          <ArrowRight className="w-4 h-4 text-white" />
-                        </div>
-                      </div>
                     </div>
                   </Link>
                 ))}

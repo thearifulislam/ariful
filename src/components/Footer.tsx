@@ -89,26 +89,42 @@ const Footer = () => {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="/services/landing-page-ui"
+                  href="/services/brand-guidelines-design"
                   className="text-white/80 hover:text-[#fefefe] transition-colors duration-300"
                 >
-                  Landing Page UI
+                  Brand Guidelines
                 </a>
               </li>
               <li>
                 <a
-                  href="/services/website-ui"
+                  href="/services/logo-design"
                   className="text-white/80 hover:text-[#fefefe] transition-colors duration-300"
                 >
-                  Website UI
+                  Logo Design
                 </a>
               </li>
               <li>
                 <a
-                  href="/services/dashboard-ui"
+                  href="/services/stationery-design"
                   className="text-white/80 hover:text-[#fefefe] transition-colors duration-300"
                 >
-                  Dashboard UI
+                  Stationery Design
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/services/image-editing"
+                  className="text-white/80 hover:text-[#fefefe] transition-colors duration-300"
+                >
+                  Image Editing
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/services/ui-design"
+                  className="text-white/80 hover:text-[#fefefe] transition-colors duration-300"
+                >
+                  UI Design
                 </a>
               </li>
 
@@ -120,7 +136,7 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-5">Contact Info</h3>
             <ul className="space-y-4">
               <li className="flex items-start">
-                <span className="text-yellow mr-3">Email:</span>
+                <span className="text-[#fdd77a] mr-3">Email:</span>
                 <a
                   href="mailto:acs.arifulislam@gmail.com"
                   className="text-white/80 hover:text-[#fefefe] transition-colors duration-300"
@@ -129,7 +145,7 @@ const Footer = () => {
                 </a>
               </li>
               <li className="flex items-start">
-                <span className="text-yellow mr-3">Phone:</span>
+                <span className="text-[#fdd77a] mr-3">Phone:</span>
                 <a
                   href="tel:+8801938434733"
                   className="text-white/80 hover:text-[#fefefe] transition-colors duration-300"
@@ -138,7 +154,7 @@ const Footer = () => {
                 </a>
               </li>
               <li className="flex items-start">
-                <span className="text-yellow mr-3">Address:</span>
+                <span className="text-[#fdd77a] mr-3">Address:</span>
                 <span className="text-white/80">Khulna, Bangladesh</span>
               </li>
             </ul>
