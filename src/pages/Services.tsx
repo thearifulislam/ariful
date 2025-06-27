@@ -220,7 +220,7 @@ const Services = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 pt-8 pb-8">
       <Navbar />
       {/* Hero Section */}
       <section className="pt-32 pb-16 flex flex-col md:flex-row items-center md:items-start md:justify-between container mx-auto px-4 md:px-8">
