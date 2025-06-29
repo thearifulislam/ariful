@@ -229,7 +229,7 @@ const ContactSection = () => {
                     <p className="text-sm text-gray-500">Phone</p>
                     <a
                       href="tel:01938434733"
-                      className="font-medium text-black hover:text-green transition-colors duration-200"
+                      className="font-medium text-black hover:text-green transition-colors duration-200 break-all text-base"
                     >
                       +88 01938434733
                     </a>
@@ -243,11 +243,12 @@ const ContactSection = () => {
                   <div className="bg-yellow/10 p-3 rounded-xl mr-4">
                     <Mail className="h-5 w-5 text-yellow" />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <p className="text-sm text-gray-500">Email</p>
                     <a
                       href="mailto:acs.arifulislam@gmail.com"
-                      className="font-medium text-black hover:text-green transition-colors duration-200"
+                      className="font-medium text-black hover:text-green transition-colors duration-200 break-all text-base block w-full"
+                      style={{ wordBreak: 'break-all' }}
                     >
                       acs.arifulislam@gmail.com
                     </a>
@@ -263,14 +264,14 @@ const ContactSection = () => {
                   </div>
                   <div>
                     <p className="text-sm text-gray-500">Address</p>
-                    <p className="font-medium">Khulna, Bangladesh</p>
+                    <p className="font-medium text-base break-words">Khulna, Bangladesh</p>
                   </div>
                 </motion.div>
               </div>
 
               <div className="mt-12">
                 <h4 className="text-lg font-semibold mb-6">Connect With Me</h4>
-                <div className="flex space-x-4">
+                <div className="flex flex-wrap gap-4">
                   {[
                     { icon: FaFacebookF, href: "https://facebook.com/arifulislamofficialprofile", label: "Facebook" },
                     { icon: FaInstagram, href: "https://www.instagram.com/_md._ariful_islam/", label: "Instagram" },
@@ -288,6 +289,7 @@ const ContactSection = () => {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.1 }}
+                      style={{ minWidth: '44px', minHeight: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                     >
                       <social.icon className="h-5 w-5" />
                     </motion.a>

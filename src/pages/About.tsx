@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import Seo from "@/components/Seo";
 import AboutSection from "../components/AboutSection";
+import aboutprofile from "../assets/profile/aboutpage.png"
 
 import me from "../assets/profile/Untitled design.png"
 import cv from "../assets/resume/Ariful islam.pdf"
@@ -143,10 +144,10 @@ const About = () => {
               </p>
 
               {/* Stats */}
-              <div className="grid grid-cols-3 gap-8 mb-10">
-                <div className="text-center p-6 bg-white rounded-2xl shadow-lg shadow-blue-600/5 hover:shadow-purple-600/10 transition-all duration-300">
-                  <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
-                    {years}+
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 mb-10">
+                <div className="text-center p-6 bg-white rounded-2xl shadow-lg shadow-blue-600/5 hover:shadow-purple-600/10 transition-all duration-300 min-w-[110px]">
+                  <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2 min-w-[60px] flex justify-center items-center">
+                    <span className="inline-block">{years}+</span>
                   </div>
                   <div className="text-sm text-gray-600">
                     Years Experience
@@ -170,21 +171,28 @@ const About = () => {
                 </div>
               </div>
 
-              <div className="flex gap-4">
+              <div className="flex flex-col sm:flex-row gap-12 justify-center items-center w-full mt-6">
+                {/* Download CV Button */}
                 <a
                   href={cv}
-                  download="Ariful_Islam_Resume.pdf"
-                  className="inline-flex items-center bg-[#1f2937] text-white px-8 py-4 rounded-full font-medium hover:shadow-lg transition-all duration-300"
+                  download="Ariful_Islam_CV.pdf"
+                  className="w-full sm:w-auto flex justify-center"
                 >
-                  Download Resume
-                  <Download className="ml-2 h-5 w-5" />
+                  <button
+                    className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3 rounded-full font-bold text-base bg-[#1f2937] text-white shadow transition-all duration-300 hover:bg-gray-800 hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-400"
+                  >
+                    Download CV
+                    <Download className="ml-2 h-5 w-5" />
+                  </button>
                 </a>
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center border-2 border-purple-600 text-purple-600 px-8 py-4 rounded-full font-medium hover:bg-purple-600 hover:text-white transition-all duration-300"
-                >
-                  Contact Me
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                {/* Contact Me Button */}
+                <Link to="/contact" className="w-full sm:w-auto flex justify-center">
+                  <button
+                    className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3 rounded-full font-bold text-base bg-[#1f2937] text-white shadow transition-all duration-300 hover:bg-gray-800 hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-400"
+                  >
+                    Contact Me
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </button>
                 </Link>
               </div>
             </div>
@@ -194,7 +202,7 @@ const About = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-purple-600/20 rounded-3xl transform rotate-3"></div>
               <div className="relative z-10 bg-white rounded-3xl overflow-hidden shadow-2xl">
                 <img
-                  src={me}
+                  src={aboutprofile}
                   alt="Ariful Islam - About Me"
                   className="w-full h-auto object-cover rounded-3xl transform hover:scale-105 transition-transform duration-500"
                 />

@@ -3,6 +3,7 @@ import { ArrowUpRight, Star, Github, Linkedin, Twitter } from "lucide-react";
 import { Link } from 'react-router-dom';
 
 import me from "../assets/profile/Untitled design.png"
+import me2 from "../assets/profile/theprofile.png"
 
 const HeroSection = () => {
   return (
@@ -138,7 +139,7 @@ const HeroSection = () => {
                   
                   {/* Profile Image */}
                   <img
-                    src={me}
+                    src={me2}
                     alt="Ariful Islam"
                     className="relative w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
