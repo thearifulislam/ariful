@@ -2,45 +2,44 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 interface SeoProps {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   keywords?: string;
-  ogImage?: string;
-  ogUrl?: string;
+  image?: string;
+  url?: string;
 }
 
-const Seo: React.FC<SeoProps> = ({ title, description, keywords, ogImage, ogUrl }) => {
-  const siteName = "Ariful GFX";
-  const fullTitle = `${title} | ${siteName}`;
-  
-  // Use a full URL for production. This should be replaced with your actual domain and a proper OG image path.
-  const baseUrl = "https://your-domain.com"; // Replace with your actual domain
-  const finalOgImage = ogImage ? `${baseUrl}${ogImage}` : `${baseUrl}/og-image.png`;
-  const finalOgUrl = ogUrl ? `${baseUrl}${ogUrl}` : baseUrl;
+const defaultTitle = 'Ariful Creator Studio | Portfolio, Graphic Design, Branding, UI/UX, Bangladesh';
+const defaultDescription = 'Ariful Creator Studio: Professional portfolio of Ariful Islam. Expert in graphic design, logo design, branding, UI/UX, business card, letterhead, and creative digital solutions. Based in Bangladesh.';
+const defaultKeywords = 'Ariful Creator Studio, arifulcreatorstudio, Ariful Islam, portfolio, graphic design, logo design, branding, UI/UX, business card, letterhead, creative, Bangladesh, designer, freelancer, digital, web design, best designer, creative studio, hire designer, top graphic designer, portfolio website, Ariful, Creator Studio, Ariful GFX, Ariful Islam portfolio, graphic designer Bangladesh, graphic design portfolio, creative portfolio, digital portfolio, hire graphic designer, best portfolio, modern design, professional design, creative agency, creative portfolio, portfolio inspiration, portfolio site, portfolio website, portfolio designer, portfolio graphic designer, portfolio creative, portfolio branding, portfolio UI/UX, portfolio business card, portfolio letterhead, portfolio logo, portfolio web design, portfolio Bangladesh, portfolio Ariful, portfolio Ariful Islam, portfolio Ariful Creator Studio';
+const defaultImage = '/profile.jpg';
+const defaultUrl = 'https://arifulcreatorstudio.com/';
 
-  return (
-    <Helmet>
-      {/* Standard SEO Tags */}
-      <title>{fullTitle}</title>
-      <meta name="description" content={description} />
-      {keywords && <meta name="keywords" content={keywords} />}
-      
-      {/* Open Graph Tags for social media sharing */}
-      <meta property="og:title" content={fullTitle} />
-      <meta property="og:description" content={description} />
-      <meta property="og:type" content="website" />
-      <meta property="og:url" content={finalOgUrl} />
-      <meta property="og:image" content={finalOgImage} />
-      <meta property="og:site_name" content={siteName} />
-      
-      {/* Twitter Card Tags */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={fullTitle} />
-      <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={finalOgImage} />
-      <meta name="twitter:creator" content="@arifulcreator" />
-    </Helmet>
-  );
-};
+const Seo: React.FC<SeoProps> = ({
+  title = defaultTitle,
+  description = defaultDescription,
+  keywords = defaultKeywords,
+  image = defaultImage,
+  url = defaultUrl,
+}) => (
+  <Helmet>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Ariful Islam" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:url" content={url} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    <meta name="twitter:site" content="@arifulgfx" />
+    <link rel="canonical" href={url} />
+  </Helmet>
+);
 
 export default Seo; 

@@ -32,6 +32,7 @@ import {
 } from "@/components/ui/collapsible";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Seo from "../components/Seo";
 
 interface SubFilterMap {
   [key: string]: string[];
@@ -155,218 +156,231 @@ const PortfolioDetails = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      <Seo 
+        title={`${projectData.title} | Portfolio | Ariful Creator Studio`}
+        description={projectData.intro}
+        keywords={projectData.tags?.join(', ') + ', portfolio, graphic design, logo design, branding, UI/UX, Bangladesh, Ariful Creator Studio, arifulcreatorstudio'}
+        image={projectData.heroImage}
+      />
       <Navbar />
-      
       <main className="pt-24 pb-16">
-        {/* Breadcrumb Navigation */}
-        <div className="container mx-auto px-4 md:px-8 mb-6">
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink href="/">Home</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator>
-                <ChevronRight className="h-4 w-4" />
-              </BreadcrumbSeparator>
-              <BreadcrumbItem>
-                <BreadcrumbLink href="#portfolio">Portfolio</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator>
-                <ChevronRight className="h-4 w-4" />
-              </BreadcrumbSeparator>
-              <BreadcrumbItem>
-                <BreadcrumbPage>{projectData.title}</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
-        </div>
-        
-        {/* Hero Image */}
-        <div className="w-full h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden mb-10 relative">
-          <img 
-            src={projectData.heroImage} 
-            alt={projectData.title}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black/40 to-transparent"></div>
-          <div className="absolute top-6 left-6 bg-yellow rounded-full px-4 py-1 text-sm font-medium">
-            {projectData.tags[0]}
+        <section>
+          {/* Breadcrumb Navigation */}
+          <div className="container mx-auto px-4 md:px-8 mb-6">
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink href="/">Home</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator>
+                  <ChevronRight className="h-4 w-4" />
+                </BreadcrumbSeparator>
+                <BreadcrumbItem>
+                  <BreadcrumbLink href="#portfolio">Portfolio</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator>
+                  <ChevronRight className="h-4 w-4" />
+                </BreadcrumbSeparator>
+                <BreadcrumbItem>
+                  <BreadcrumbPage>{projectData.title}</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
           </div>
-        </div>
-        
-        {/* Project Title & Meta Info */}
-        <div className="container mx-auto px-4 md:px-8 mb-12">
-          <div className="flex flex-wrap items-center justify-between mb-4">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-black-soft mb-4 md:mb-0">
-              {projectData.title}
-            </h1>
-            <Button variant="outline" className="flex items-center gap-2">
-              <Share2 className="w-4 h-4" /> Share
-            </Button>
-          </div>
-          
-          <div className="flex flex-wrap gap-4 mb-6 text-sm text-muted-foreground">
-            <div className="flex items-center gap-1">
-              <User className="w-4 h-4" />
-              <span>{projectData.author}</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <Calendar className="w-4 h-4" />
-              <span>{projectData.date}</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <Clock className="w-4 h-4" />
-              <span>{projectData.readTime}</span>
+        </section>
+        <section>
+          {/* Hero Image */}
+          <div className="w-full h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden mb-10 relative">
+            <img 
+              src={projectData.heroImage} 
+              alt={projectData.title + ' hero image'}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black/40 to-transparent"></div>
+            <div className="absolute top-6 left-6 bg-yellow rounded-full px-4 py-1 text-sm font-medium">
+              {projectData.tags[0]}
             </div>
           </div>
-          
-          <p className="text-lg text-muted-foreground mb-8">
-            {projectData.intro}
-          </p>
-          
-          <div className="flex flex-wrap gap-2 mb-8">
-            {projectData.tags.map((tag, index) => (
-              <span key={index} className="bg-muted px-3 py-1 rounded-full text-sm font-medium">
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
-        
-        {/* Filters Section */}
-        <div className="container mx-auto px-4 md:px-8 mb-12">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input 
-                placeholder="Search projects..." 
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 max-w-xs"
-              />
+        </section>
+        <section>
+          {/* Project Title & Meta Info */}
+          <div className="container mx-auto px-4 md:px-8 mb-12">
+            <div className="flex flex-wrap items-center justify-between mb-4">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-black-soft mb-4 md:mb-0">
+                {projectData.title}
+              </h1>
+              <Button variant="outline" className="flex items-center gap-2">
+                <Share2 className="w-4 h-4" /> Share
+              </Button>
             </div>
             
-            <Tabs defaultValue="grid" className="w-full md:w-auto">
-              <TabsList>
-                <TabsTrigger value="grid">Grid</TabsTrigger>
-                <TabsTrigger value="list">List</TabsTrigger>
-              </TabsList>
-            </Tabs>
-          </div>
-          
-          {/* Main Filters */}
-          <div className="overflow-x-auto pb-2">
-            <ToggleGroup type="single" className="inline-flex min-w-full md:min-w-0 space-x-1">
-              {mainFilters.map((filter) => (
-                <ToggleGroupItem 
-                  key={filter} 
-                  value={filter}
-                  onClick={() => handleFilterClick(filter)}
-                  className={`${activeFilter === filter ? 'bg-yellow text-black-soft' : ''}`}
-                >
-                  {filter}
-                </ToggleGroupItem>
-              ))}
-            </ToggleGroup>
-          </div>
-          
-          {/* Sub Filters */}
-          <Collapsible open={isSubFilterOpen} className="mt-4">
-            <CollapsibleContent>
-              {activeFilter !== "All" && subFilters[activeFilter] && (
-                <div className="bg-muted p-4 rounded-md">
-                  <div className="flex flex-wrap gap-2">
-                    {subFilters[activeFilter].map((subFilter) => (
-                      <Button 
-                        key={subFilter} 
-                        variant="ghost" 
-                        size="sm"
-                        className="rounded-full hover:bg-yellow hover:text-black-soft"
-                      >
-                        {subFilter}
-                      </Button>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </CollapsibleContent>
-          </Collapsible>
-        </div>
-        
-        {/* Content Section */}
-        <div className="container mx-auto px-4 md:px-8 mb-16">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="md:col-span-2">
-              <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: projectData.content }} />
-              
-              {/* Client Quote */}
-              <div className="bg-muted p-6 rounded-lg my-10 border-l-4 border-yellow">
-                <p className="text-lg italic mb-4">"{projectData.clientQuote.text}"</p>
-                <div>
-                  <p className="font-medium">{projectData.clientQuote.author}</p>
-                  <p className="text-sm text-muted-foreground">{projectData.clientQuote.position}</p>
-                </div>
+            <div className="flex flex-wrap gap-4 mb-6 text-sm text-muted-foreground">
+              <div className="flex items-center gap-1">
+                <User className="w-4 h-4" />
+                <span>{projectData.author}</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Calendar className="w-4 h-4" />
+                <span>{projectData.date}</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Clock className="w-4 h-4" />
+                <span>{projectData.readTime}</span>
               </div>
             </div>
             
-            <div className="space-y-6">
-              {/* Project Images */}
-              <div className="space-y-4">
-                {projectData.images.map((image, index) => (
-                  <div key={index} className="rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
+            <p className="text-lg text-muted-foreground mb-8">
+              {projectData.intro}
+            </p>
+            
+            <div className="flex flex-wrap gap-2 mb-8">
+              {projectData.tags.map((tag, index) => (
+                <span key={index} className="bg-muted px-3 py-1 rounded-full text-sm font-medium">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        </section>
+        <section>
+          {/* Filters Section */}
+          <div className="container mx-auto px-4 md:px-8 mb-12">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Input 
+                  placeholder="Search projects..." 
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10 max-w-xs"
+                />
+              </div>
+              
+              <Tabs defaultValue="grid" className="w-full md:w-auto">
+                <TabsList>
+                  <TabsTrigger value="grid">Grid</TabsTrigger>
+                  <TabsTrigger value="list">List</TabsTrigger>
+                </TabsList>
+              </Tabs>
+            </div>
+            
+            {/* Main Filters */}
+            <div className="overflow-x-auto pb-2">
+              <ToggleGroup type="single" className="inline-flex min-w-full md:min-w-0 space-x-1">
+                {mainFilters.map((filter) => (
+                  <ToggleGroupItem 
+                    key={filter} 
+                    value={filter}
+                    onClick={() => handleFilterClick(filter)}
+                    className={`${activeFilter === filter ? 'bg-yellow text-black-soft' : ''}`}
+                  >
+                    {filter}
+                  </ToggleGroupItem>
+                ))}
+              </ToggleGroup>
+            </div>
+            
+            {/* Sub Filters */}
+            <Collapsible open={isSubFilterOpen} className="mt-4">
+              <CollapsibleContent>
+                {activeFilter !== "All" && subFilters[activeFilter] && (
+                  <div className="bg-muted p-4 rounded-md">
+                    <div className="flex flex-wrap gap-2">
+                      {subFilters[activeFilter].map((subFilter) => (
+                        <Button 
+                          key={subFilter} 
+                          variant="ghost" 
+                          size="sm"
+                          className="rounded-full hover:bg-yellow hover:text-black-soft"
+                        >
+                          {subFilter}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </CollapsibleContent>
+            </Collapsible>
+          </div>
+        </section>
+        <section>
+          {/* Content Section */}
+          <div className="container mx-auto px-4 md:px-8 mb-16">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="md:col-span-2">
+                <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: projectData.content }} />
+                
+                {/* Client Quote */}
+                <div className="bg-muted p-6 rounded-lg my-10 border-l-4 border-yellow">
+                  <p className="text-lg italic mb-4">"{projectData.clientQuote.text}"</p>
+                  <div>
+                    <p className="font-medium">{projectData.clientQuote.author}</p>
+                    <p className="text-sm text-muted-foreground">{projectData.clientQuote.position}</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="space-y-6">
+                {/* Project Images */}
+                <div className="space-y-4">
+                  {projectData.images.map((image, index) => (
+                    <div key={index} className="rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
+                      <img 
+                        src={image} 
+                        alt={`Project image ${index + 1}`} 
+                        className="w-full h-auto"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section>
+          {/* Related Projects Section */}
+          <div className="container mx-auto px-4 md:px-8 mb-16">
+            <h2 className="text-2xl md:text-3xl font-bold mb-8">Related Projects</h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {relatedProjects.map((project) => (
+                <div key={project.id} className="rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white">
+                  <div className="h-48 overflow-hidden">
                     <img 
-                      src={image} 
-                      alt={`Project image ${index + 1}`} 
-                      className="w-full h-auto"
+                      src={project.thumbnail} 
+                      alt={project.title}
+                      className="w-full h-full object-cover"
                     />
                   </div>
-                ))}
-              </div>
+                  <div className="p-5">
+                    <h3 className="text-lg font-bold mb-2">{project.title}</h3>
+                    <p className="text-muted-foreground mb-4">{project.description}</p>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {project.tags.map((tag, index) => (
+                        <span key={index} className="bg-muted px-2 py-1 rounded-full text-xs font-medium">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <Link to="/portfolio-details">
+                      <Button variant="outline">View Details</Button>
+                    </Link>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
-        
-        {/* Related Projects Section */}
-        <div className="container mx-auto px-4 md:px-8 mb-16">
-          <h2 className="text-2xl md:text-3xl font-bold mb-8">Related Projects</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {relatedProjects.map((project) => (
-              <div key={project.id} className="rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white">
-                <div className="h-48 overflow-hidden">
-                  <img 
-                    src={project.thumbnail} 
-                    alt={project.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-5">
-                  <h3 className="text-lg font-bold mb-2">{project.title}</h3>
-                  <p className="text-muted-foreground mb-4">{project.description}</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tags.map((tag, index) => (
-                      <span key={index} className="bg-muted px-2 py-1 rounded-full text-xs font-medium">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <Link to="/portfolio-details">
-                    <Button variant="outline">View Details</Button>
-                  </Link>
-                </div>
-              </div>
-            ))}
+        </section>
+        <section>
+          {/* Back to Portfolio */}
+          <div className="container mx-auto px-4 md:px-8 mb-16 flex justify-center">
+            <Link to="/#portfolio">
+              <Button className="gap-2">
+                <ArrowLeft className="w-4 h-4" /> Back to Portfolio
+              </Button>
+            </Link>
           </div>
-        </div>
-        
-        {/* Back to Portfolio */}
-        <div className="container mx-auto px-4 md:px-8 mb-16 flex justify-center">
-          <Link to="/#portfolio">
-            <Button className="gap-2">
-              <ArrowLeft className="w-4 h-4" /> Back to Portfolio
-            </Button>
-          </Link>
-        </div>
+        </section>
       </main>
       
       {/* Back to Top Button */}

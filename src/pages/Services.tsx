@@ -220,95 +220,97 @@ const Services = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-50 pt-8 pb-8">
-      <Navbar />
-      {/* Hero Section */}
-      <section className="pt-32 pb-16 flex flex-col md:flex-row items-center md:items-start md:justify-between container mx-auto px-4 md:px-8">
-        <div className="max-w-xl text-left">
-          <div className="inline-flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-full mb-6">
-            <Sparkles className="w-5 h-5 text-blue-400" />
-            <span className="text-base font-semibold tracking-wide text-blue-700">Our Services</span>
-          </div>
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-6 text-slate-900">
-            Design that <span className="text-blue-600">elevates</span> your brand
-          </h1>
-          <p className="text-slate-600 text-lg mb-8">
-            18+ years of experience helping brands create meaningful digital experiences.
-          </p>
-        </div>
-        <div className="hidden md:flex flex-1 justify-end">
-          <div className="rounded-full bg-blue-100 p-8 shadow-lg animate-bounce-slow">
-            <PenTool className="w-16 h-16 text-blue-500" />
-          </div>
-        </div>
-      </section>
-
-      {/* Services Grid */}
-      <section className="pb-24 container mx-auto px-4 md:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-16">
-          {services.map((service, idx) => (
-            <div
-              key={service.id}
-              ref={(el) => (cardsRef.current[idx] = el)}
-              className="service-card group p-8 flex flex-col h-full"
-              style={{
-                // @ts-ignore
-                '--accent-color': service.accent,
-              }}
-            >
-              <div className="service-icon-circle mb-4" style={{ background: `linear-gradient(135deg, ${service.accent}11 0%, #fff 100%)` }}>
-                {service.icon}
-              </div>
-              <Link
-                to={`/services/${service.id}`}
-                className="text-xl font-bold text-slate-900 mb-2 hover:text-blue-700 transition-colors"
-              >
-                {service.title}
-              </Link>
-              <p className="text-slate-600 mb-4 text-base">{service.description}</p>
-              <ul className="mb-4 space-y-1">
-                {service.features.map((f, i) => (
-                  <li key={i} className="flex items-center text-sm text-slate-700">
-                    <span className="inline-block w-2 h-2 rounded-full mr-2" style={{ background: service.accent }} />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <div className="flex flex-wrap gap-2 mb-6">
-                {service.subServices.map((sub, i) => (
-                  <span key={i} className="px-3 py-1 rounded-full text-xs bg-slate-100 text-slate-700 font-semibold">
-                    {sub}
-                  </span>
-                ))}
-              </div>
-              <Link
-                to={`/services/${service.id}`}
-                className="mt-auto inline-flex items-center gap-2 text-sm text-blue-700 font-semibold hover:text-blue-900 transition-colors"
-              >
-                Learn More <ArrowRight className="w-4 h-4" />
-              </Link>
+    <>
+      <div className="min-h-screen bg-slate-50 pt-8 pb-8">
+        <Navbar />
+        {/* Hero Section */}
+        <section className="pt-32 pb-16 flex flex-col md:flex-row items-center md:items-start md:justify-between container mx-auto px-4 md:px-8">
+          <div className="max-w-xl text-left">
+            <div className="inline-flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-full mb-6">
+              <Sparkles className="w-5 h-5 text-blue-400" />
+              <span className="text-base font-semibold tracking-wide text-blue-700">Our Services</span>
             </div>
-          ))}
-        </div>
-      </section>
+            <h1 className="text-4xl md:text-5xl font-extrabold mb-6 text-slate-900">
+              Design that <span className="text-blue-600">elevates</span> your brand
+            </h1>
+            <p className="text-slate-600 text-lg mb-8">
+              18+ years of experience helping brands create meaningful digital experiences.
+            </p>
+          </div>
+          <div className="hidden md:flex flex-1 justify-end">
+            <div className="rounded-full bg-blue-100 p-8 shadow-lg animate-bounce-slow">
+              <PenTool className="w-16 h-16 text-blue-500" />
+            </div>
+          </div>
+        </section>
 
-      {/* CTA Section */}
-      <section className="py-16 bg-white border-t border-slate-100 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900">
-          Ready to start your project?
-        </h2>
-        <p className="text-slate-600 mb-8 max-w-xl mx-auto">
-          Let's collaborate to create something amazing. Contact me today to discuss your next design project.
-        </p>
-        <Link
-          to="/contact"
-          className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 text-white rounded-full font-bold text-lg shadow-lg hover:bg-blue-700 transition-all duration-300"
-        >
-          Get in Touch <ArrowRight className="w-5 h-5" />
-        </Link>
-      </section>
+        {/* Services Grid */}
+        <section className="pb-24 container mx-auto px-4 md:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-16">
+            {services.map((service, idx) => (
+              <div
+                key={service.id}
+                ref={(el) => (cardsRef.current[idx] = el)}
+                className="service-card group p-8 flex flex-col h-full"
+                style={{
+                  // @ts-ignore
+                  '--accent-color': service.accent,
+                }}
+              >
+                <div className="service-icon-circle mb-4" style={{ background: `linear-gradient(135deg, ${service.accent}11 0%, #fff 100%)` }}>
+                  {service.icon}
+                </div>
+                <Link
+                  to={`/services/${service.id}`}
+                  className="text-xl font-bold text-slate-900 mb-2 hover:text-blue-700 transition-colors"
+                >
+                  {service.title}
+                </Link>
+                <p className="text-slate-600 mb-4 text-base">{service.description}</p>
+                <ul className="mb-4 space-y-1">
+                  {service.features.map((f, i) => (
+                    <li key={i} className="flex items-center text-sm text-slate-700">
+                      <span className="inline-block w-2 h-2 rounded-full mr-2" style={{ background: service.accent }} />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {service.subServices.map((sub, i) => (
+                    <span key={i} className="px-3 py-1 rounded-full text-xs bg-slate-100 text-slate-700 font-semibold">
+                      {sub}
+                    </span>
+                  ))}
+                </div>
+                <Link
+                  to={`/services/${service.id}`}
+                  className="mt-auto inline-flex items-center gap-2 text-sm text-blue-700 font-semibold hover:text-blue-900 transition-colors"
+                >
+                  Learn More <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-16 bg-white border-t border-slate-100 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900">
+            Ready to start your project?
+          </h2>
+          <p className="text-slate-600 mb-8 max-w-xl mx-auto">
+            Let's collaborate to create something amazing. Contact me today to discuss your next design project.
+          </p>
+          <Link
+            to="/contact"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 text-white rounded-full font-bold text-lg shadow-lg hover:bg-blue-700 transition-all duration-300"
+          >
+            Get in Touch <ArrowRight className="w-5 h-5" />
+          </Link>
+        </section>
+      </div>
       <Footer />
-    </div>
+    </>
   );
 };
 

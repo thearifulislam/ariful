@@ -10,16 +10,18 @@ import Blogs from "./pages/Blogs";
 import BlogPost from "./pages/BlogPost";
 import Contact from "./pages/Contact";
 import Login from './pages/Login';
-import Messages from './components/Messages';
-import ProtectedRoute from './components/ProtectedRoute';
-import { AuthProvider } from './context/AuthContext';
-import DashboardLayout from './components/dashboard/DashboardLayout';
 import NotFound from "./pages/NotFound";
 import FloatingButtons from './components/FloatingButtons';
 import ScrollToTop from './components/ScrollToTop';
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import CookiePolicy from "./pages/CookiePolicy";
+import Signup from './pages/Signup';
+import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
+import DashboardLayout from './components/dashboard/DashboardLayout';
+import DashboardIndex from './pages/Dashboard/Index';
+import DashboardMessages from './pages/Dashboard/Messages';
 
 const AppRoutes = () => (
   <Routes>
@@ -34,22 +36,30 @@ const AppRoutes = () => (
     <Route path="/blogs/:blogId" element={<BlogPost />} />
     <Route path="/contact" element={<Contact />} />
     <Route path="/login" element={<Login />} />
+    <Route path="/signup" element={<Signup />} />
     <Route path="/privacy" element={<PrivacyPolicy />} />
     <Route path="/terms" element={<TermsOfService />} />
     <Route path="/cookies" element={<CookiePolicy />} />
-    
-    {/* Protected Dashboard Route */}
     <Route
-      path="/dashboard/*"
+      path="/dashboard"
       element={
         <ProtectedRoute>
           <DashboardLayout>
-            <Messages activeFilter="inbox" />
+            <DashboardIndex />
           </DashboardLayout>
         </ProtectedRoute>
       }
     />
-    
+    <Route
+      path="/dashboard/messages"
+      element={
+        <ProtectedRoute>
+          <DashboardLayout>
+            <DashboardMessages />
+          </DashboardLayout>
+        </ProtectedRoute>
+      }
+    />
     {/* 404 Page */}
     <Route path="*" element={<NotFound />} />
   </Routes>

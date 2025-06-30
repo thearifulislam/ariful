@@ -1,276 +1,127 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  collection, 
-  query, 
-  orderBy, 
-  onSnapshot, 
-  doc, 
-  updateDoc,
-  serverTimestamp
-} from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
+import { collection, query, orderBy, onSnapshot, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../../config/firebase';
-import { Message } from '../../types/message';
-import { 
-  Mail, 
-  Clock, 
-  Phone, 
-  Building,
-  CheckCircle,
-  Circle,
-  Search,
-  X
-} from 'lucide-react';
-import { toast } from 'react-hot-toast';
+import { useAuth } from '../../context/AuthContext';
 
-const Messages: React.FC = () => {
+interface Message {
+  id: string;
+  senderName?: string;
+  senderEmail?: string;
+  sender?: string;
+  email?: string;
+  subject?: string;
+  message?: string;
+  content?: string;
+  phone?: string;
+  company?: string;
+  isRead: boolean;
+  createdAt: any;
+}
+
+const Messages = () => {
+  const { user } = useAuth();
   const [messages, setMessages] = useState<Message[]>([]);
-  const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [selectedMsg, setSelectedMsg] = useState<Message | null>(null);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    const messagesQuery = query(
-      collection(db, 'messages'),
-      orderBy('createdAt', 'desc')
-    );
-
-    const unsubscribe = onSnapshot(messagesQuery, (snapshot) => {
-      const messageData: Message[] = [];
-      snapshot.forEach((doc) => {
-        const data = doc.data();
-        messageData.push({
-          ...data,
-          id: doc.id,
-          createdAt: data.createdAt?.toDate() || new Date(),
-        } as Message);
+    const q = query(collection(db, 'messages'), orderBy('createdAt', 'desc'));
+    const unsub = onSnapshot(q, (snap) => {
+      const data: Message[] = [];
+      snap.forEach(doc => {
+        data.push({ id: doc.id, ...doc.data() } as Message);
       });
-      setMessages(messageData);
-      setIsLoading(false);
+      setMessages(data);
+      setLoading(false);
     });
-
-    return () => unsubscribe();
+    return () => unsub();
   }, []);
 
-  const handleMarkAsRead = async (messageId: string, isRead: boolean) => {
-    try {
-      const messageRef = doc(db, 'messages', messageId);
-      await updateDoc(messageRef, {
-        isRead,
-        lastUpdated: serverTimestamp()
-      });
-      toast.success(isRead ? 'Message marked as read' : 'Message marked as unread');
-    } catch (error) {
-      console.error('Error updating message status:', error);
-      toast.error('Failed to update message status');
-    }
+  const markAsRead = async (id: string, isRead: boolean) => {
+    await updateDoc(doc(db, 'messages', id), { isRead });
+  };
+  const deleteMessage = async (id: string) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this message? This action cannot be undone.');
+    if (!confirmDelete) return;
+    await deleteDoc(doc(db, 'messages', id));
+    if (selectedMsg?.id === id) setSelectedMsg(null);
+  };
+  const copyEmail = (email: string) => {
+    navigator.clipboard.writeText(email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1200);
   };
 
-  const formatDate = (date: Date) => {
-    const now = new Date();
-    const diff = now.getTime() - date.getTime();
-    const hours = Math.floor(diff / (1000 * 60 * 60));
-    const minutes = Math.floor(diff / (1000 * 60));
+  if (loading) return <div className="text-center py-12">Loading...</div>;
 
-    if (hours < 24) {
-      if (hours === 0) {
-        return `${minutes} minutes ago`;
-      }
-      return `${hours} hours ago`;
-    }
-
-    return new Intl.DateTimeFormat('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: true
-    }).format(date);
-  };
-
-  const filteredMessages = messages.filter(message => 
-    message.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    message.message.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    message.senderName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    message.senderEmail.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Helper to get the best value for each field
+  const getName = (msg: Message) => msg.senderName || msg.sender || 'Unknown';
+  const getEmail = (msg: Message) => msg.senderEmail || msg.email || 'Unknown';
+  const getSubject = (msg: Message) => msg.subject || '';
+  const getMessage = (msg: Message) => msg.message || msg.content || '';
+  const getPhone = (msg: Message) => msg.phone || '';
+  const getCompany = (msg: Message) => msg.company || '';
 
   return (
-    <div className="h-full flex flex-col lg:flex-row gap-6">
-      {/* Message List */}
-      <div className="flex-1 bg-white rounded-xl shadow-sm">
-        <div className="p-4 border-b">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-            <input
-              type="text"
-              placeholder="Search messages..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-        </div>
-
-        <div className="overflow-y-auto h-[calc(100vh-180px)]">
-          {isLoading ? (
-            <div className="h-full flex items-center justify-center">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#4318FF]" />
-            </div>
-          ) : filteredMessages.length === 0 ? (
-            <div className="h-full flex items-center justify-center">
-              <div className="text-center text-gray-500">
-                <Mail className="w-12 h-12 mx-auto mb-4 text-gray-400" />
-                <p className="text-lg font-medium">No messages</p>
-                <p className="text-sm mt-1">Your inbox is empty</p>
+    <div className="max-w-3xl mx-auto mt-8">
+      <h1 className="text-2xl font-bold mb-6 text-blue-700">Messages</h1>
+      {messages.length === 0 ? (
+        <div className="text-gray-500">No messages found.</div>
+      ) : (
+        <ul className="space-y-4">
+          {messages.map(msg => (
+            <li key={msg.id} className={`p-4 rounded-lg shadow bg-white flex flex-col md:flex-row md:items-center md:justify-between ${msg.isRead ? 'opacity-60' : ''}`}>
+              <div className="flex-1 min-w-0 cursor-pointer" onClick={() => setSelectedMsg(msg)}>
+                <div className="font-semibold text-gray-900">Client: {getName(msg)} <span className="text-gray-400 text-sm">({getEmail(msg)})</span></div>
+                {getSubject(msg) && <div className="text-blue-700 font-semibold text-sm mt-1">Subject: {getSubject(msg)}</div>}
+                <div className="text-gray-700 mt-1 mb-2 line-clamp-2">{getMessage(msg)}</div>
+                <div className="text-xs text-gray-400">{msg.createdAt?.toDate ? msg.createdAt.toDate().toLocaleString() : ''}</div>
               </div>
-            </div>
-          ) : (
-            filteredMessages.map((message) => (
-              <div
-                key={message.id}
-                onClick={() => {
-                  setSelectedMessage(message);
-                  if (!message.isRead) {
-                    handleMarkAsRead(message.id, true);
-                  }
-                }}
-                className={`p-4 border-b cursor-pointer hover:bg-gray-50 ${
-                  selectedMessage?.id === message.id ? 'bg-blue-50' : ''
-                }`}
-              >
-                <div className="flex items-start gap-3">
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2">
-                      <h3 className="font-medium text-gray-900 truncate">{message.subject}</h3>
-                      {!message.isRead && (
-                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                          New
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-sm text-gray-500 truncate">{message.senderName}</p>
-                    <div className="flex items-center gap-2 text-xs text-gray-400 mt-1">
-                      <Clock className="w-3 h-3" />
-                      <span>{formatDate(message.createdAt)}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))
-          )}
-        </div>
-      </div>
-
-      {/* Message Detail */}
-      <div className="hidden lg:block w-[600px] bg-white rounded-xl shadow-sm">
-        {selectedMessage ? (
-          <div className="h-full flex flex-col">
-            <div className="p-6 border-b">
-              <div className="flex items-center justify-between">
-                <h2 className="text-xl font-bold text-gray-900">{selectedMessage.subject}</h2>
-                <button
-                  onClick={() => handleMarkAsRead(selectedMessage.id, !selectedMessage.isRead)}
-                  className={`p-2 rounded-lg hover:bg-gray-100 ${
-                    selectedMessage.isRead ? 'text-blue-500' : 'text-green-500'
-                  }`}
-                  title={selectedMessage.isRead ? "Mark as unread" : "Mark as read"}
-                >
-                  {selectedMessage.isRead ? <CheckCircle size={20} /> : <Circle size={20} />}
+              <div className="flex gap-2 mt-2 md:mt-0 items-center">
+                <button title="Copy Email" onClick={() => copyEmail(getEmail(msg))} className="p-2 rounded hover:bg-gray-100 text-gray-500" aria-label="Copy Email">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16h8M8 12h8m-8-4h8m2 8V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2h8l4-4z" /></svg>
+                </button>
+                <a href={`mailto:${getEmail(msg)}`} title="Reply" className="p-2 rounded hover:bg-gray-100 text-blue-500" aria-label="Reply">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h7V6a1 1 0 011-1h6a1 1 0 011 1v12a1 1 0 01-1 1h-6a1 1 0 01-1-1v-4H3v-4z" /></svg>
+                </a>
+                <button onClick={() => markAsRead(msg.id, !msg.isRead)} title={msg.isRead ? 'Mark Unread' : 'Mark Read'} className="p-2 rounded hover:bg-blue-100 text-blue-700" aria-label="Mark Read/Unread">
+                  {msg.isRead ? (
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                  ) : (
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                  )}
+                </button>
+                <button onClick={() => deleteMessage(msg.id)} title="Delete" className="p-2 rounded hover:bg-red-100 text-red-700" aria-label="Delete">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
                 </button>
               </div>
-              <div className="mt-4 space-y-3">
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <span className="font-medium">From:</span>
-                  <span>{selectedMessage.senderName} ({selectedMessage.senderEmail})</span>
-                </div>
-                {selectedMessage.phone && (
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <Phone className="w-4 h-4" />
-                    <span>{selectedMessage.phone}</span>
-                  </div>
-                )}
-                {selectedMessage.company && (
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <Building className="w-4 h-4" />
-                    <span>{selectedMessage.company}</span>
-                  </div>
-                )}
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <Clock className="w-4 h-4" />
-                  <span>{formatDate(selectedMessage.createdAt)}</span>
-                </div>
-              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+      {/* Full message modal */}
+      {selectedMsg && (
+        <div className="fixed inset-0 z-40 flex items-center justify-center bg-black bg-opacity-40">
+          <div className="bg-white rounded-lg shadow-xl max-w-lg w-full p-6 relative animate-fade-in">
+            <button onClick={() => setSelectedMsg(null)} className="absolute top-2 right-2 p-2 rounded hover:bg-gray-100 text-gray-500" aria-label="Close">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+            <h2 className="text-xl font-bold mb-2 text-blue-700">Message from {getName(selectedMsg)}</h2>
+            <div className="mb-1 text-gray-600 text-sm">Email: <span className="font-mono">{getEmail(selectedMsg)}</span></div>
+            {getPhone(selectedMsg) && <div className="mb-1 text-gray-600 text-sm">Phone: {getPhone(selectedMsg)}</div>}
+            {getCompany(selectedMsg) && <div className="mb-1 text-gray-600 text-sm">Company: {getCompany(selectedMsg)}</div>}
+            {getSubject(selectedMsg) && <div className="mb-1 text-blue-700 font-semibold text-sm">Subject: {getSubject(selectedMsg)}</div>}
+            <div className="mb-1 text-gray-600 text-sm">Received: {selectedMsg.createdAt?.toDate ? selectedMsg.createdAt.toDate().toLocaleString() : ''}</div>
+            <div className="mb-4 text-gray-600 text-sm">Status: {selectedMsg.isRead ? 'Read' : 'Unread'}</div>
+            <div className="mb-4 text-gray-900 whitespace-pre-line">{getMessage(selectedMsg)}</div>
+            <div className="flex gap-2">
+              <button onClick={() => markAsRead(selectedMsg.id, !selectedMsg.isRead)} className="px-3 py-1 rounded bg-blue-100 text-blue-700 text-xs font-semibold hover:bg-blue-200">{selectedMsg.isRead ? 'Mark Unread' : 'Mark Read'}</button>
+              <button onClick={() => copyEmail(getEmail(selectedMsg))} className="px-3 py-1 rounded bg-gray-100 text-gray-700 text-xs font-semibold hover:bg-gray-200">Copy Email</button>
+              <a href={`mailto:${getEmail(selectedMsg)}`} className="px-3 py-1 rounded bg-green-100 text-green-700 text-xs font-semibold hover:bg-green-200">Reply</a>
+              <button onClick={() => deleteMessage(selectedMsg.id)} className="px-3 py-1 rounded bg-red-100 text-red-700 text-xs font-semibold hover:bg-red-200">Delete</button>
             </div>
-            <div className="flex-1 p-6 overflow-y-auto">
-              <div className="prose max-w-none">
-                <p className="whitespace-pre-wrap">{selectedMessage.message}</p>
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div className="h-full flex items-center justify-center text-gray-500">
-            <div className="text-center">
-              <Mail className="w-12 h-12 mx-auto mb-4 text-gray-400" />
-              <p className="text-lg font-medium">Select a message</p>
-              <p className="text-sm mt-1">Choose a message to view its details</p>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Mobile Message Detail */}
-      {selectedMessage && (
-        <div className="lg:hidden fixed inset-0 z-50 bg-white">
-          <div className="h-full flex flex-col">
-            <div className="p-4 border-b flex items-center justify-between">
-              <button
-                onClick={() => setSelectedMessage(null)}
-                className="p-2 rounded-lg hover:bg-gray-100"
-              >
-                <X className="w-5 h-5 text-gray-600" />
-              </button>
-              <button
-                onClick={() => handleMarkAsRead(selectedMessage.id, !selectedMessage.isRead)}
-                className={`p-2 rounded-lg hover:bg-gray-100 ${
-                  selectedMessage.isRead ? 'text-blue-500' : 'text-green-500'
-                }`}
-              >
-                {selectedMessage.isRead ? <CheckCircle size={20} /> : <Circle size={20} />}
-              </button>
-            </div>
-            <div className="flex-1 overflow-y-auto">
-              <div className="p-4 border-b">
-                <h2 className="text-xl font-bold text-gray-900">{selectedMessage.subject}</h2>
-                <div className="mt-4 space-y-3">
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <span className="font-medium">From:</span>
-                    <span>{selectedMessage.senderName} ({selectedMessage.senderEmail})</span>
-                  </div>
-                  {selectedMessage.phone && (
-                    <div className="flex items-center gap-2 text-sm text-gray-600">
-                      <Phone className="w-4 h-4" />
-                      <span>{selectedMessage.phone}</span>
-                    </div>
-                  )}
-                  {selectedMessage.company && (
-                    <div className="flex items-center gap-2 text-sm text-gray-600">
-                      <Building className="w-4 h-4" />
-                      <span>{selectedMessage.company}</span>
-                    </div>
-                  )}
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <Clock className="w-4 h-4" />
-                    <span>{formatDate(selectedMessage.createdAt)}</span>
-                  </div>
-                </div>
-              </div>
-              <div className="p-4">
-                <div className="prose max-w-none">
-                  <p className="whitespace-pre-wrap">{selectedMessage.message}</p>
-                </div>
-              </div>
-            </div>
+            {copied && <div className="mt-2 text-green-600 text-xs">Email copied!</div>}
           </div>
         </div>
       )}

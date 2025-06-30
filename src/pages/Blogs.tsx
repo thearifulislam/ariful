@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 import { Search, Calendar, ArrowRight, Clock, User } from "lucide-react";
 import { motion } from "framer-motion";
+import Seo from '../components/Seo';
 
 const Blogs = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -119,178 +120,185 @@ const Blogs = () => {
   });
 
   return (
-    <div className="min-h-screen bg-[#f9f9f9]">
-      <Navbar />
-      
-      {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-gradient-to-b from-[#344c36]/10 to-transparent">
-        <div className="container mx-auto px-4 md:px-8 text-center">
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-5xl font-bold mb-4"
-          >
-            Insights & <span className="text-[#344c36]">Perspectives</span>
-          </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-muted-foreground max-w-2xl mx-auto"
-          >
-            Exploring the intersections of design, technology, and artificial intelligence through in-depth articles and analysis.
-          </motion.p>
-        </div>
-      </section>
-      
-      {/* Blog Filters */}
-      <section className="py-12">
-        <div className="container mx-auto px-4 md:px-8">
-          {/* Search bar */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-8 relative"
-          >
-            <div className="relative max-w-md mx-auto">
-              <input
-                type="text"
-                placeholder="Search articles..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full py-3 pl-12 pr-4 bg-white rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#344c36]"
-              />
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-            </div>
-          </motion.div>
-          
-          {/* Category filters */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="mb-10 flex flex-wrap justify-center gap-3"
-          >
-            {categories.map((category, index) => (
-              <motion.button
-                key={category.id}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
-                onClick={() => setActiveCategory(category.id)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                  activeCategory === category.id 
-                    ? 'bg-[#344c36] text-white' 
-                    : 'bg-white text-gray-700 hover:bg-gray-100'
-                }`}
-              >
-                {category.name}
-              </motion.button>
-            ))}
-          </motion.div>
-          
-          {/* Blog posts grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredPosts.map((post, index) => (
-              <motion.div
-                key={post.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <Link to={`/blogs/${post.id}`} className="group">
-                  <article className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 h-full flex flex-col">
-                    <div className="h-52 overflow-hidden">
-                      <img
-                        src={post.image}
-                        alt={post.title}
-                        className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
-                      />
-                    </div>
-                    <div className="p-6 flex flex-col flex-grow">
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-xs px-3 py-1 rounded-full bg-[#344c36]/10 text-[#344c36]">
-                          {categories.find(cat => cat.id === post.category)?.name}
-                        </span>
-                        <div className="flex items-center text-xs text-gray-500">
-                          <Calendar className="h-3 w-3 mr-1" />
-                          <span>{post.date}</span>
-                        </div>
-                      </div>
-                      
-                      <h3 className="text-xl font-bold mb-3 group-hover:text-[#344c36] transition-colors">
-                        {post.title}
-                      </h3>
-                      
-                      <p className="text-sm text-gray-600 mb-4 flex-grow">
-                        {post.excerpt}
-                      </p>
-                      
-                      <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-                        <div className="flex items-center space-x-4">
-                          <div className="flex items-center text-sm text-gray-500">
-                            <User className="h-4 w-4 mr-1" />
-                            <span>{post.author}</span>
-                          </div>
-                          <div className="flex items-center text-sm text-gray-500">
-                            <Clock className="h-4 w-4 mr-1" />
-                            <span>{post.readTime}</span>
-                          </div>
-                        </div>
-                        <span className="text-sm font-medium text-[#344c36] group-hover:text-[#344c36] transition-colors flex items-center">
-                          Read more
-                          <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                        </span>
-                      </div>
-                    </div>
-                  </article>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-          
-          {/* No results */}
-          {filteredPosts.length === 0 && (
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-center py-12"
+    <>
+      <Seo
+        title="Blogs | Ariful Creator Studio"
+        description="Read the latest articles and insights from Ariful Islam on graphic design, branding, portfolio, and creative business."
+        keywords="blogs, articles, Ariful Creator Studio, arifulcreatorstudio, graphic design, branding, portfolio, creative, Bangladesh, designer, best designer, creative studio, hire designer, top graphic designer"
+      />
+      <div className="min-h-screen bg-[#f9f9f9]">
+        <Navbar />
+        
+        {/* Hero Section */}
+        <section className="pt-32 pb-16 bg-gradient-to-b from-[#344c36]/10 to-transparent">
+          <div className="container mx-auto px-4 md:px-8 text-center">
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-4xl md:text-5xl font-bold mb-4"
             >
-              <h3 className="text-xl font-semibold mb-2">No articles found</h3>
-              <p className="text-muted-foreground">Try adjusting your search or filter criteria</p>
+              Insights & <span className="text-[#344c36]">Perspectives</span>
+            </motion.h1>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-muted-foreground max-w-2xl mx-auto"
+            >
+              Exploring the intersections of design, technology, and artificial intelligence through in-depth articles and analysis.
+            </motion.p>
+          </div>
+        </section>
+        
+        {/* Blog Filters */}
+        <section className="py-12">
+          <div className="container mx-auto px-4 md:px-8">
+            {/* Search bar */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-8 relative"
+            >
+              <div className="relative max-w-md mx-auto">
+                <input
+                  type="text"
+                  placeholder="Search articles..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full py-3 pl-12 pr-4 bg-white rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#344c36]"
+                />
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+              </div>
             </motion.div>
-          )}
-        </div>
-      </section>
-      
-      {/* Newsletter */}
-      <section className="py-16 bg-gradient-to-b from-white to-[#344c36]/5">
-        <div className="container mx-auto px-4 md:px-8 max-w-3xl text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl font-bold mb-4">Stay Updated</h2>
-            <p className="text-muted-foreground mb-8">
-              Get the latest insights on design, development, and AI delivered directly to your inbox.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <input
-                type="email"
-                placeholder="Enter your email address"
-                className="flex-grow py-3 px-4 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#344c36]"
-              />
-              <button className="bg-[#344c36] text-white py-3 px-6 rounded-full font-medium hover:bg-[#2a3e2c] transition-colors duration-300">
-                Subscribe
-              </button>
+            
+            {/* Category filters */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="mb-10 flex flex-wrap justify-center gap-3"
+            >
+              {categories.map((category, index) => (
+                <motion.button
+                  key={category.id}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  onClick={() => setActiveCategory(category.id)}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                    activeCategory === category.id 
+                      ? 'bg-[#344c36] text-white' 
+                      : 'bg-white text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  {category.name}
+                </motion.button>
+              ))}
+            </motion.div>
+            
+            {/* Blog posts grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredPosts.map((post, index) => (
+                <motion.div
+                  key={post.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <Link to={`/blogs/${post.id}`} className="group">
+                    <article className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 h-full flex flex-col">
+                      <div className="h-52 overflow-hidden">
+                        <img
+                          src={post.image}
+                          alt={post.title}
+                          className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
+                        />
+                      </div>
+                      <div className="p-6 flex flex-col flex-grow">
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-xs px-3 py-1 rounded-full bg-[#344c36]/10 text-[#344c36]">
+                            {categories.find(cat => cat.id === post.category)?.name}
+                          </span>
+                          <div className="flex items-center text-xs text-gray-500">
+                            <Calendar className="h-3 w-3 mr-1" />
+                            <span>{post.date}</span>
+                          </div>
+                        </div>
+                        
+                        <h3 className="text-xl font-bold mb-3 group-hover:text-[#344c36] transition-colors">
+                          {post.title}
+                        </h3>
+                        
+                        <p className="text-sm text-gray-600 mb-4 flex-grow">
+                          {post.excerpt}
+                        </p>
+                        
+                        <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
+                          <div className="flex items-center space-x-4">
+                            <div className="flex items-center text-sm text-gray-500">
+                              <User className="h-4 w-4 mr-1" />
+                              <span>{post.author}</span>
+                            </div>
+                            <div className="flex items-center text-sm text-gray-500">
+                              <Clock className="h-4 w-4 mr-1" />
+                              <span>{post.readTime}</span>
+                            </div>
+                          </div>
+                          <span className="text-sm font-medium text-[#344c36] group-hover:text-[#344c36] transition-colors flex items-center">
+                            Read more
+                            <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                          </span>
+                        </div>
+                      </div>
+                    </article>
+                  </Link>
+                </motion.div>
+              ))}
             </div>
-          </motion.div>
-        </div>
-      </section>
-      
-      <Footer />
-    </div>
+            
+            {/* No results */}
+            {filteredPosts.length === 0 && (
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-center py-12"
+              >
+                <h3 className="text-xl font-semibold mb-2">No articles found</h3>
+                <p className="text-muted-foreground">Try adjusting your search or filter criteria</p>
+              </motion.div>
+            )}
+          </div>
+        </section>
+        
+        {/* Newsletter */}
+        <section className="py-16 bg-gradient-to-b from-white to-[#344c36]/5">
+          <div className="container mx-auto px-4 md:px-8 max-w-3xl text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl font-bold mb-4">Stay Updated</h2>
+              <p className="text-muted-foreground mb-8">
+                Get the latest insights on design, development, and AI delivered directly to your inbox.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <input
+                  type="email"
+                  placeholder="Enter your email address"
+                  className="flex-grow py-3 px-4 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#344c36]"
+                />
+                <button className="bg-[#344c36] text-white py-3 px-6 rounded-full font-medium hover:bg-[#2a3e2c] transition-colors duration-300">
+                  Subscribe
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+        
+        <Footer />
+      </div>
+    </>
   );
 };
 

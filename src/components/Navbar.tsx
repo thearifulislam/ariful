@@ -111,7 +111,7 @@ const Navbar = () => {
           className="text-xl md:text-2xl font-bold flex items-center group shrink-0 logo-animation"
         >
           <Heart
-            className="mr-2 text-amber-200 fill-amber-200 group-hover:text-white group-hover:fill-white transition-colors"
+            className="mr-2 text-amber-200 fill-amber-200 transition-colors"
             size={20}
           />
           <span className="text-amber-200 group-hover:text-white transition-colors">

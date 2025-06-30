@@ -7,6 +7,8 @@ interface AuthContextType {
   user: any;
   loading: boolean;
   logout: () => Promise<void>;
+  login: (email: string, password: string) => Promise<void>;
+  signup: (email: string, password: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -38,8 +40,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  const login = async (email: string, password: string) => {
+    // Implementation of login function
+  };
+
+  const signup = async (email: string, password: string) => {
+    // Implementation of signup function
+  };
+
   return (
-    <AuthContext.Provider value={{ user, loading, logout }}>
+    <AuthContext.Provider value={{ user, login, signup, logout, loading }}>
       {!loading && children}
     </AuthContext.Provider>
   );

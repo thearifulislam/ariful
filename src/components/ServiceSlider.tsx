@@ -17,6 +17,7 @@ const services = [
   "Color Theory",
   "Typography",
   "Icon Design"
+  
 
 ];
 
@@ -47,8 +48,14 @@ const ServiceSlider = () => {
       <style>{`
         .animate-marquee {
           display: flex;
-          animation: marquee 40s linear infinite;
+          animation: marquee 5s linear infinite;
           padding-top: 2rem;
+        }
+
+        @media (max-width: 640px) {
+          .animate-marquee {
+            animation-duration: 6s;
+          }
         }
 
         @keyframes marquee {
