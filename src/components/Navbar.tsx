@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Heart } from "lucide-react";
 import EmotionalButton from "./EmotionalButton";
 
@@ -68,6 +68,7 @@ const navLinks = [
   { name: "About", href: "/about" },
   { name: "Services", href: "/services" },
   { name: "Projects", href: "/projects" },
+  { name: "Testimonials", href: "/testimonials" },
   // { name: "Blog", href: "/blogs" },
   // { name: "FAQs", href: "/faqs" },
 ];
@@ -75,12 +76,8 @@ const navLinks = [
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [iconKey, setIconKey] = useState(0);
-  const [activeLink, setActiveLink] = useState("/");
-
-  // Update active link on path change (browser)
-  useEffect(() => {
-    setActiveLink(window.location.pathname);
-  }, []);
+  const location = useLocation();
+  const activeLink = location.pathname;
 
   // Add body scroll lock when mobile menu open
   useEffect(() => {
@@ -106,8 +103,8 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 w-full z-50 bg-black-soft shadow-lg">
       <div className="container mx-auto px-4 md:px-8 flex items-center min-h-[64px]">
         {/* Logo */}
-        <a
-          href="/"
+        <Link
+          to="/"
           className="text-xl md:text-2xl font-bold flex items-center group shrink-0 logo-animation"
         >
           <Heart
@@ -120,7 +117,7 @@ const Navbar = () => {
           <span className="text-white group-hover:text-amber-200 transition-colors">
             GFX
           </span>
-        </a>
+        </Link>
 
         {/* Desktop Nav - Centered */}
         <div className="hidden md:flex items-center justify-center flex-1">

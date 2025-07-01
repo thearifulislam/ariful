@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import {
@@ -1674,6 +1674,7 @@ const serviceData = {
 
 const ServiceDetails = () => {
   const { serviceId } = useParams<{ serviceId: string }>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -1703,11 +1704,11 @@ const ServiceDetails = () => {
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <button
-                onClick={() => window.location.reload()}
+                onClick={() => navigate(0)}
                 className="group inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-[#1f2937] to-[#374151] text-white rounded-2xl font-semibold hover:from-[#111827] hover:to-[#1f2937] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
               >
                 <RefreshCw className="h-5 w-5 mr-3 group-hover:animate-spin" />
-                Refresh Page
+                Try Again
               </button>
               
               <Link

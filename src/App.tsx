@@ -9,6 +9,7 @@ import About from "./pages/About";
 import Blogs from "./pages/Blogs";
 import BlogPost from "./pages/BlogPost";
 import Contact from "./pages/Contact";
+import Testimonials from "./pages/Testimonials";
 import Login from './pages/Login';
 import NotFound from "./pages/NotFound";
 import FloatingButtons from './components/FloatingButtons';
@@ -22,6 +23,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import DashboardLayout from './components/dashboard/DashboardLayout';
 import DashboardIndex from './pages/Dashboard/Index';
 import DashboardMessages from './pages/Dashboard/Messages';
+import IntroLogo from './components/IntroLogo';
 
 const AppRoutes = () => (
   <Routes>
@@ -35,6 +37,7 @@ const AppRoutes = () => (
     <Route path="/blogs" element={<Blogs />} />
     <Route path="/blogs/:blogId" element={<BlogPost />} />
     <Route path="/contact" element={<Contact />} />
+    <Route path="/testimonials" element={<Testimonials />} />
     <Route path="/login" element={<Login />} />
     <Route path="/signup" element={<Signup />} />
     <Route path="/privacy" element={<PrivacyPolicy />} />
@@ -65,15 +68,20 @@ const AppRoutes = () => (
   </Routes>
 );
 
-const App = () => (
-  <Router>
-    <AuthProvider>
-      <ScrollToTop />
-      <Toaster />
-      <FloatingButtons />
-      <AppRoutes />
-    </AuthProvider>
-  </Router>
-);
+function App() {
+  console.log('App component rendering');
+  
+  return (
+    <Router>
+      <AuthProvider>
+        <IntroLogo />
+        <ScrollToTop />
+        <Toaster />
+        <FloatingButtons />
+        <AppRoutes />
+      </AuthProvider>
+    </Router>
+  );
+}
 
 export default App;

@@ -1,4 +1,5 @@
 import { Linkedin, Instagram } from "lucide-react";
+import { Link } from "react-router-dom";
 import {
   FaFacebookF,
   FaInstagram,
@@ -13,6 +14,7 @@ const Footer = () => {
     { name: "About", href: "/about" },
     { name: "Services", href: "/services" },
     { name: "Portfolio", href: "/projects" },
+    { name: "Testimonials", href: "/testimonials" },
     { name: "Contact", href: "/contact" },
   ];
 
@@ -72,12 +74,12 @@ const Footer = () => {
             <ul className="space-y-3">
               {navLinks.map((link, index) => (
                 <li key={index}>
-                  <a
-                    href={link.href}
+                  <Link
+                    to={link.href}
                     className="text-white/80 hover:text-[#fefefe] transition-colors duration-300"
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -88,44 +90,44 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-5">Services</h3>
             <ul className="space-y-3">
               <li>
-                <a
-                  href="/services/brand-guidelines-design"
+                <Link
+                  to="/services/brand-guidelines-design"
                   className="text-white/80 hover:text-[#fefefe] transition-colors duration-300"
                 >
                   Brand Guidelines
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="/services/logo-design"
+                <Link
+                  to="/services/logo-design"
                   className="text-white/80 hover:text-[#fefefe] transition-colors duration-300"
                 >
                   Logo Design
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="/services/stationery-design"
+                <Link
+                  to="/services/stationery-design"
                   className="text-white/80 hover:text-[#fefefe] transition-colors duration-300"
                 >
                   Stationery Design
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="/services/image-editing"
+                <Link
+                  to="/services/image-editing"
                   className="text-white/80 hover:text-[#fefefe] transition-colors duration-300"
                 >
                   Image Editing
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="/services/ui-design"
+                <Link
+                  to="/services/ui-design"
                   className="text-white/80 hover:text-[#fefefe] transition-colors duration-300"
                 >
                   UI Design
-                </a>
+                </Link>
               </li>
 
             </ul>
@@ -164,9 +166,9 @@ const Footer = () => {
         <div className="pt-10 border-t border-white/20 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
           <p className="text-white/60">Copyright © {new Date().getFullYear()} Ariful Islam. All Rights Reserved.</p>
           <div className="flex gap-6">
-            <a href="/privacy" className="text-white/60 hover:text-[#fefefe] transition-colors">Privacy Policy</a>
-            <a href="/terms" className="text-white/60 hover:text-[#fefefe] transition-colors">Terms of Service</a>
-            <a href="/cookies" className="text-white/60 hover:text-[#fefefe] transition-colors">Cookie Policy</a>
+            <Link to="/privacy" className="text-white/60 hover:text-[#fefefe] transition-colors">Privacy Policy</Link>
+            <Link to="/terms" className="text-white/60 hover:text-[#fefefe] transition-colors">Terms of Service</Link>
+            <Link to="/cookies" className="text-white/60 hover:text-[#fefefe] transition-colors">Cookie Policy</Link>
           </div>
         </div>
       </div>
