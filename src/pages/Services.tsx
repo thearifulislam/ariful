@@ -14,6 +14,7 @@ import {
   ImagePlus,
   Sparkles,
 } from "lucide-react";
+import { Helmet } from "react-helmet";
 
 // ==== Glassmorphism & Modern CSS for Services Section ====
 const servicesAnimStyle = `
@@ -221,6 +222,9 @@ const Services = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Services | ArifulGFX</title>
+      </Helmet>
       <div className="min-h-screen bg-slate-50 pt-8 pb-8">
         <Navbar />
         {/* Hero Section */}
@@ -236,11 +240,6 @@ const Services = () => {
             <p className="text-slate-600 text-lg mb-8">
               18+ years of experience helping brands create meaningful digital experiences.
             </p>
-          </div>
-          <div className="hidden md:flex flex-1 justify-end">
-            <div className="rounded-full bg-blue-100 p-8 shadow-lg animate-bounce-slow">
-              <PenTool className="w-16 h-16 text-blue-500" />
-            </div>
           </div>
         </section>
 

@@ -27,6 +27,7 @@ import { db } from '../config/firebase';
 import { z } from "zod";
 import ContactForm from "@/components/ContactForm";
 import Seo from "@/components/Seo";
+import { Helmet } from "react-helmet";
 
 // Form validation schema
 const formSchema = z.object({
@@ -191,6 +192,9 @@ const Contact = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Contact | ArifulGFX</title>
+      </Helmet>
       <Seo 
         title="Contact Me"
         description="Get in touch with Ariful GFX for your next project. Contact me for brand identity, logo design, or UI/UX services."

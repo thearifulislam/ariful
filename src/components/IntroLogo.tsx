@@ -52,14 +52,14 @@ const IntroLogo = () => {
         animation: 'gridMove 20s linear infinite'
       }}></div>
       
-      <div style={{ textAlign: 'center', position: 'relative', zIndex: 2 }}>
+      <div style={{ textAlign: 'center', position: 'relative', zIndex: 2 }} className="intro-logo-main">
         {/* Main logo container */}
         <div style={{
           marginBottom: '60px',
           position: 'relative'
         }}>
           {/* Glowing background */}
-          <div style={{
+          <div className="intro-logo-glow" style={{
             width: '350px',
             height: '350px',
             background: 'radial-gradient(circle, rgba(246, 163, 0, 0.2) 0%, transparent 70%)',
@@ -72,7 +72,7 @@ const IntroLogo = () => {
           }}></div>
           
           {/* Logo text */}
-          <div style={{
+          <div className="intro-logo-text" style={{
             fontSize: '4rem',
             fontWeight: '900',
             color: '#F6A300',
@@ -92,7 +92,7 @@ const IntroLogo = () => {
           marginBottom: '50px',
           position: 'relative'
         }}>
-          <p style={{ 
+          <p className="intro-logo-tagline" style={{ 
             color: 'white', 
             fontSize: '1.8rem',
             fontWeight: '300',
@@ -102,7 +102,7 @@ const IntroLogo = () => {
           }}>
             Your Design Partner
           </p>
-          <div style={{
+          <div className="intro-logo-underline" style={{
             width: '200px',
             height: '3px',
             background: 'linear-gradient(90deg, transparent, #F6A300, transparent)',
@@ -119,21 +119,21 @@ const IntroLogo = () => {
           gap: '15px',
           marginBottom: '30px'
         }}>
-          <div style={{
+          <div className="intro-logo-loading-dot" style={{
             width: '15px',
             height: '15px',
             borderRadius: '50%',
             background: '#F6A300',
             animation: 'loadingDot 1.5s ease-in-out infinite'
           }}></div>
-          <div style={{
+          <div className="intro-logo-loading-dot" style={{
             width: '15px',
             height: '15px',
             borderRadius: '50%',
             background: '#F6A300',
             animation: 'loadingDot 1.5s ease-in-out infinite 0.2s'
           }}></div>
-          <div style={{
+          <div className="intro-logo-loading-dot" style={{
             width: '15px',
             height: '15px',
             borderRadius: '50%',
@@ -143,7 +143,7 @@ const IntroLogo = () => {
         </div>
         
         {/* Progress bar */}
-        <div style={{
+        <div className="intro-logo-progress" style={{
           width: '400px',
           height: '6px',
           background: 'rgba(255, 255, 255, 0.1)',
@@ -218,6 +218,37 @@ const IntroLogo = () => {
           @keyframes shimmer {
             0% { transform: translateX(-100%); }
             100% { transform: translateX(100%); }
+          }
+
+          /* Responsive styles for mobile */
+          @media (max-width: 600px) {
+            .intro-logo-main {
+              padding: 0 10px;
+            }
+            .intro-logo-glow {
+              width: 180px !important;
+              height: 180px !important;
+            }
+            .intro-logo-text {
+              font-size: 2rem !important;
+            }
+            .intro-logo-tagline {
+              font-size: 1.1rem !important;
+            }
+            .intro-logo-underline {
+              width: 110px !important;
+              height: 2px !important;
+            }
+            .intro-logo-progress {
+              width: 90vw !important;
+              min-width: 0 !important;
+              max-width: 100vw !important;
+            }
+            .intro-logo-loading-dot {
+              width: 10px !important;
+              height: 10px !important;
+              gap: 8px !important;
+            }
           }
         `}
       </style>

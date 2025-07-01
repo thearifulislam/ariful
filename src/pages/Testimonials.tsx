@@ -34,7 +34,7 @@ const Testimonials = () => {
   return (
     <>
       <Seo 
-        title="Client Testimonials | Ariful GFX"
+        title="Client Testimonials | ArifulGFX"
         description="Read what our clients say about working with Ariful GFX. Real testimonials from satisfied clients about our design services."
         keywords="testimonials, client reviews, design feedback, satisfied clients, Ariful GFX reviews"
       />
