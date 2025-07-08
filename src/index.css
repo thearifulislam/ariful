@@ -93,10 +93,6 @@
 @layer base {
   * {
     @apply border-border;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
   }
 
   body {
@@ -498,4 +494,21 @@ body {
   background-color: #4f46e5 !important; /* indigo-600 */
   width: 24px !important;
   border-radius: 5px !important;
+}
+
+/* Prevent text selection on interactive elements only */
+button, 
+.btn, 
+.nav-item, 
+.floating-button,
+.swiper-button-next,
+.swiper-button-prev,
+.swiper-pagination-bullet,
+.hire-me-btn,
+.service-card,
+.portfolio-card {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }

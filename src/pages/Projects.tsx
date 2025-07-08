@@ -167,7 +167,7 @@ const portfolioItems = [
     image: elegantgoldaccentedcorporateletterhead,
   },
   {
-    id: "marketing-pro-banner",
+    id: "promotional-banner",
     title: "Dynamic Promotional Banner",
     categories: ["banner"],
     subCategories: ["promotional"],
@@ -434,7 +434,7 @@ const gridVariants = {
   },
 };
 
-// Portfolio Card Component
+// Portfolio Card Component for Grid View
 const PortfolioCard = ({ item, index }: { item: any; index: number }) => {
   return (
     <motion.div
@@ -490,6 +490,118 @@ const PortfolioCard = ({ item, index }: { item: any; index: number }) => {
   );
 };
 
+// Portfolio Card Component for List View
+const PortfolioListCard = ({ item, index }: { item: any; index: number }) => {
+  return (
+    <motion.div
+      variants={{
+        hidden: { opacity: 0, x: -60, filter: "blur(8px)" },
+        show: {
+          opacity: 1,
+          x: 0,
+          filter: "blur(0px)",
+          transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+        },
+      }}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.2 }}
+      className="group"
+    >
+      <Card className="overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 bg-white group-hover:border-blue-200 group-hover:border">
+        <CardContent className="p-0">
+          <div className="flex flex-col md:flex-row">
+                        {/* Image Container */}
+            <Link to={`/projects/${item.id}`} className="block relative w-full md:w-80 h-64 md:h-auto overflow-hidden rounded-l-lg">
+              <img
+                src={item.image}
+                alt={item.title}
+                className="w-full h-full object-cover transform transition-all duration-700 scale-100 group-hover:scale-110 rounded-l-lg"
+              />
+ 
+              {/* Overlay with category info */}
+              <div className="absolute top-4 left-4">
+                <Badge className="bg-black/70 text-white border-0 backdrop-blur-sm">
+                  {item.categories[0]?.charAt(0).toUpperCase() + item.categories[0]?.slice(1)}
+                </Badge>
+              </div>
+            </Link>
+            
+            {/* Content */}
+            <div className="flex-1 p-6 md:p-8">
+              <div className="flex flex-col h-full">
+                {/* Header */}
+                <div className="mb-4">
+                  <Link to={`/projects/${item.id}`}>
+                    <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-300">
+                      {item.title}
+                    </h3>
+                  </Link>
+                  
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {item.tags?.slice(0, 4).map((tag: string, tagIndex: number) => (
+                      <Badge 
+                        key={tagIndex} 
+                        variant="secondary" 
+                        className="text-xs bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
+                      >
+                        {tag}
+                      </Badge>
+                    ))}
+                    {item.tags?.length > 4 && (
+                      <Badge variant="outline" className="text-xs">
+                        +{item.tags.length - 4} more
+                      </Badge>
+                    )}
+                  </div>
+                </div>
+
+                {/* Category and Sub-category info */}
+                <div className="mb-6">
+                  <div className="flex items-center gap-4 text-sm text-gray-600">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                      <span className="font-medium">Category:</span>
+                      <span className="capitalize">{item.categories[0]}</span>
+                    </div>
+                    {item.subCategories?.[0] && (
+                      <div className="flex items-center gap-2">
+                        <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
+                        <span className="font-medium">Type:</span>
+                        <span className="capitalize">{item.subCategories[0]}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex items-center justify-between mt-auto">
+                  <div className="flex items-center gap-3">
+                    <Link 
+                      to={`/projects/${item.id}`} 
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300 font-medium"
+                    >
+                      <Eye className="w-4 h-4" />
+                      View Details
+                    </Link>
+                  </div>
+                  
+                  <div className="flex items-center gap-2 text-sm text-gray-500">
+                    <span>Project #{index + 1}</span>
+                    <span>•</span>
+                    <span>{item.categories[0]?.charAt(0).toUpperCase() + item.categories[0]?.slice(1)}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </motion.div>
+  );
+};
+
 // Main Projects Component
 const Projects = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -502,6 +614,10 @@ const Projects = () => {
   const [visibleCount, setVisibleCount] = useState(15);
   // Add loading state for See More
   const [loadingMore, setLoadingMore] = useState(false);
+  // Add this new state near the other useState hooks
+  const [showSubCategories, setShowSubCategories] = useState(false);
+  // Add this new state near the other useState hooks
+  const [lastAnimatedCategory, setLastAnimatedCategory] = useState<string | null>(null);
 
   // Get current category's sub-categories
   const currentCategory = categories.find(cat => cat.id === activeFilter);
@@ -574,6 +690,20 @@ const Projects = () => {
       setLoadingMore(false);
     }, 1000);
   };
+
+  // Add this effect to reset subcategory visibility when category changes
+  useEffect(() => {
+    if (activeFilter === "all") {
+      setShowSubCategories(false);
+      setLastAnimatedCategory(null);
+    } else if (categories.find(cat => cat.id === activeFilter)?.subCategories?.length > 0) {
+      setShowSubCategories(true);
+      setLastAnimatedCategory(activeFilter);
+    } else {
+      setShowSubCategories(false);
+      setLastAnimatedCategory(null);
+    }
+  }, [activeFilter]);
 
   return (
     <>
@@ -685,71 +815,102 @@ const Projects = () => {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="overflow-hidden border-t border-gray-100 pt-6"
-                    >
-                      <div className="space-y-6">
-                        {/* Categories */}
-                        <div>
-                          <h4 className="text-sm font-semibold text-gray-700 mb-3">Categories</h4>
-                          <div className="flex flex-wrap gap-2">
-                            {categories.map((category) => (
-                            <Button
-                                key={category.id}
-                                onClick={() => setActiveFilter(category.id)}
-                                variant={activeFilter === category.id ? "default" : "outline"}
-                                size="sm"
-                                className="text-sm"
-                              >
-                                <span className="mr-2">{category.icon}</span>
-                                {category.name}
-                            </Button>
-                            ))}
-                          </div>
-                          </div>
-
-                        {/* Sub-categories - Only show if there are available sub-categories */}
-                        {availableSubCategories.length > 0 && (
+                        transition={{ duration: 0.3 }}
+                        className="overflow-hidden border-t border-gray-100 pt-6"
+                      >
+                        <div className="space-y-6">
+                          {/* Categories */}
                           <div>
-                            <h4 className="text-sm font-semibold text-gray-700 mb-3">Sub-categories</h4>
+                            <h4 className="text-sm font-semibold text-gray-700 mb-3">Categories</h4>
                             <div className="flex flex-wrap gap-2">
-                              <Button
-                                onClick={() => setActiveSubFilter("all")}
-                                variant={activeSubFilter === "all" ? "default" : "outline"}
-                                size="sm"
-                                className="text-sm"
-                              >
-                                All Sub-categories
-                              </Button>
-                              {availableSubCategories.map((subCategory) => (
+                              {categories.map((category) => (
                                 <Button
-                                  key={subCategory.id}
-                                  onClick={() => setActiveSubFilter(subCategory.id)}
-                                  variant={activeSubFilter === subCategory.id ? "default" : "outline"}
+                                  key={category.id}
+                                  onClick={() => {
+                                    if (activeFilter === category.id) {
+                                      setShowSubCategories((prev) => !prev);
+                                    } else {
+                                      setActiveFilter(category.id);
+                                      setShowSubCategories(true);
+                                      setLastAnimatedCategory(category.id);
+                                    }
+                                  }}
+                                  variant={activeFilter === category.id ? "default" : "outline"}
                                   size="sm"
                                   className="text-sm"
                                 >
-                                  {subCategory.name}
+                                  <span className="mr-2">{category.icon}</span>
+                                  {category.name}
                                 </Button>
                               ))}
                             </div>
                           </div>
-                        )}
 
-                        {/* Sort Options */}
-                        <div>
-                          <h4 className="text-sm font-semibold text-gray-700 mb-3">Sort By</h4>
-                          <select
-                            value={sortBy}
-                            onChange={(e) => setSortBy(e.target.value)}
-                            className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                          >
-                            {sortOptions.map((option) => (
-                              <option key={option.id} value={option.id}>{option.name}</option>
-                            ))}
-                          </select>
+                          {/* Sub-categories - Only show if there are available sub-categories */}
+                          <AnimatePresence initial={false}>
+                            {availableSubCategories.length > 0 && showSubCategories && (
+                              <motion.div
+                                key={lastAnimatedCategory || activeFilter}
+                                initial={{ opacity: 0, y: -10, height: 0 }}
+                                animate={{ opacity: 1, y: 0, height: "auto" }}
+                                exit={{ opacity: 0, y: -10, height: 0 }}
+                                transition={{ duration: 0.3 }}
+                                className="overflow-hidden"
+                              >
+                                <h4 className="text-sm font-semibold text-gray-700 mb-3">Sub-categories</h4>
+                                <div className="flex flex-wrap gap-2">
+                                  <Button
+                                    onClick={() => setActiveSubFilter("all")}
+                                    variant={activeSubFilter === "all" ? "default" : "outline"}
+                                    size="sm"
+                                    className="text-sm"
+                                  >
+                                    All Sub-categories
+                                  </Button>
+                                  {availableSubCategories.map((subCategory) => (
+                                    <Button
+                                      key={subCategory.id}
+                                      onClick={() => setActiveSubFilter(subCategory.id)}
+                                      variant={activeSubFilter === subCategory.id ? "default" : "outline"}
+                                      size="sm"
+                                      className="text-sm"
+                                    >
+                                      {subCategory.name}
+                                    </Button>
+                                  ))}
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+
+                          {/* Sort Options and Clear Filter Button Row */}
+                          <div>
+                            <h4 className="text-sm font-semibold text-gray-700 mb-3">Sort By</h4>
+                            <div className="flex items-center gap-3">
+                              <select
+                                value={sortBy}
+                                onChange={(e) => setSortBy(e.target.value)}
+                                className="h-10 px-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                              >
+                                {sortOptions.map((option) => (
+                                  <option key={option.id} value={option.id}>{option.name}</option>
+                                ))}
+                              </select>
+                              <Button
+                                variant="ghost"
+                                className="h-10 text-sm text-red-500 hover:text-red-700 border border-red-300 px-4"
+                                onClick={() => {
+                                  setActiveFilter("all");
+                                  setActiveSubFilter("all");
+                                  setSearchQuery("");
+                                  setSortBy("title");
+                                }}
+                              >
+                                <X className="w-4 h-4 mr-2" /> Clear Filter
+                              </Button>
+                            </div>
+                          </div>
                         </div>
-                                  </div>
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -759,8 +920,15 @@ const Projects = () => {
         </section>
 
         {/* Projects Grid */}
-        <section className="py-12">
-          <div className="container mx-auto px-4 md:px-8">
+        <section className={`py-12 relative ${viewMode === "list" ? "bg-gradient-to-br from-gray-50/50 via-white to-blue-50/30" : ""}`}>
+          {viewMode === "list" && (
+            <div className="absolute inset-0 opacity-5">
+              <div className="absolute inset-0" style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+              }}></div>
+            </div>
+          )}
+          <div className="container mx-auto px-4 md:px-8 relative">
             {/* Results Count */}
             <div className="flex items-center justify-between mb-8">
               <p className="text-gray-600">
@@ -791,7 +959,11 @@ const Projects = () => {
                   animate="show"
                 >
                   {projectsToShow.map((item, index) => (
-                    <PortfolioCard key={item.id} item={item} index={index} />
+                    viewMode === "grid" ? (
+                      <PortfolioCard key={item.id} item={item} index={index} />
+                    ) : (
+                      <PortfolioListCard key={item.id} item={item} index={index} />
+                    )
                   ))}
                 </motion.div>
                 {/* See More Button */}
@@ -842,7 +1014,7 @@ const Projects = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
                 className="group cursor-pointer"
-                onClick={() => window.open('https://www.behance.net/arifuldesigner', '_blank')}
+                onClick={() => window.open('https://www.behance.net/arifulcreatorstudio', '_blank')}
               >
                 <Card className="overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-white">
                   <CardContent className="p-0">
@@ -864,14 +1036,14 @@ const Projects = () => {
                     </div>
                     <div className="p-6">
                       <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-500">@arifuldesigner</span>
+                        <span className="text-sm text-gray-500">@arifulcreatorstudio</span>
                         <Button 
                           variant="outline" 
                           size="sm" 
                           className="group-hover:bg-blue-600 group-hover:text-white transition-colors"
                           onClick={(e) => {
                             e.stopPropagation();
-                            window.open('https://www.behance.net/arifuldesigner', '_blank');
+                            window.open('https://www.behance.net/arifulcreatorstudio', '_blank');
                           }}
                         >
                           Follow
@@ -888,7 +1060,7 @@ const Projects = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
                 className="group cursor-pointer"
-                onClick={() => window.open('https://dribbble.com/arifuldesigner', '_blank')}
+                onClick={() => window.open('https://dribbble.com/arifulcreatorstudio', '_blank')}
               >
                 <Card className="overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-white">
                   <CardContent className="p-0">
@@ -910,14 +1082,14 @@ const Projects = () => {
                     </div>
                     <div className="p-6">
                       <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-500">@arifuldesigner</span>
+                        <span className="text-sm text-gray-500">@arifulcreatorstudio</span>
                         <Button 
                           variant="outline" 
                           size="sm" 
                           className="group-hover:bg-pink-500 group-hover:text-white transition-colors"
                           onClick={(e) => {
                             e.stopPropagation();
-                            window.open('https://dribbble.com/arifuldesigner', '_blank');
+                            window.open('https://dribbble.com/arifulcreatorstudio', '_blank');
                           }}
                         >
                           Follow
@@ -934,7 +1106,7 @@ const Projects = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="group cursor-pointer"
-                onClick={() => window.open('https://pinterest.com/arifuldesigner', '_blank')}
+                onClick={() => window.open('https://pinterest.com/arifulcreatorstudio', '_blank')}
               >
                 <Card className="overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-white">
                   <CardContent className="p-0">
@@ -956,14 +1128,14 @@ const Projects = () => {
                     </div>
                     <div className="p-6">
                       <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-500">@arifuldesigner</span>
+                        <span className="text-sm text-gray-500">@arifulcreatorstudio</span>
                         <Button 
                           variant="outline" 
                           size="sm" 
                           className="group-hover:bg-red-600 group-hover:text-white transition-colors"
                           onClick={(e) => {
                             e.stopPropagation();
-                            window.open('https://pinterest.com/arifuldesigner', '_blank');
+                            window.open('https://pinterest.com/arifulcreatorstudio', '_blank');
                           }}
                         >
                           Follow
@@ -980,7 +1152,7 @@ const Projects = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="group cursor-pointer"
-                onClick={() => window.open('https://instagram.com/arifuldesigner', '_blank')}
+                onClick={() => window.open('https://instagram.com/arifulcreatorstudio', '_blank')}
               >
                 <Card className="overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-white">
                   <CardContent className="p-0">
@@ -1002,14 +1174,14 @@ const Projects = () => {
                     </div>
                     <div className="p-6">
                       <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-500">@arifuldesigner</span>
+                        <span className="text-sm text-gray-500">@arifulcreatorstudio</span>
                         <Button 
                           variant="outline" 
                           size="sm" 
                           className="group-hover:bg-gradient-to-r group-hover:from-purple-500 group-hover:to-pink-500 group-hover:text-white transition-colors"
                           onClick={(e) => {
                             e.stopPropagation();
-                            window.open('https://instagram.com/arifuldesigner', '_blank');
+                            window.open('https://instagram.com/arifulcreatorstudio', '_blank');
                           }}
                         >
                           Follow
@@ -1041,10 +1213,10 @@ const Projects = () => {
                   onClick={() => {
                     // Open all social media links in new tabs
                     const links = [
-                      'https://www.behance.net/arifuldesigner',
-                      'https://dribbble.com/arifuldesigner',
-                      'https://pinterest.com/arifuldesigner',
-                      'https://instagram.com/arifuldesigner'
+                      'https://www.behance.net/arifulcreatorstudio',
+                      'https://dribbble.com/arifulcreatorstudio',
+                      'https://pinterest.com/arifulcreatorstudio',
+                      'https://instagram.com/arifulcreatorstudio'
                     ];
                     links.forEach(link => window.open(link, '_blank'));
                   }}

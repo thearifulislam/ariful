@@ -232,14 +232,14 @@ const PortfolioSection = () => {
       image: modernminimalistcamerabusinesscard,
     },
     {
-      id: "elegant-gold-accented-corporate-letterhead",
+      id: "elite-corporate-letterhead",
       title: "Elegant Gold-Accented Corporate Letterhead",
       category: "Letterhead Design",
       tags: ["Letterhead"],
       image: elegantgoldaccentedcorporateletterhead,
     },
     {
-      id: "professional-promotional-banner",
+      id: "promotional-banner",
       title: "Promotional Banner",
       category: "Banner",
       tags: ["Banner"],
