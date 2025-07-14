@@ -17,13 +17,14 @@ import elegantletterhead from "../assets/portfolios/letterhead/modern/1/Modern L
 export type ProjectType = {
   id: string;
   title: string;
-  category: string;
-  client: string;
-  date: string;
-  tags: string[];
   coverImage: string;
-  description: string;
-  galleryImages: string[];
+  behanceUrl?: string;
+  category?: string;
+  client?: string;
+  date?: string;
+  tags?: string[];
+  description?: string;
+  galleryImages?: string[];
   tools?: string[];
   creativeFields?: string[];
   challenge?: string;
@@ -36,68 +37,6 @@ export type ProjectType = {
 };
 
 export const projectsData: Record<string, ProjectType> = {
-  "momentum-clothing-brand-for-men": {
-    id: "momentum-clothing-brand-for-men",
-    title: "Momentum Menswear – Modern & Stylish Clothing for Men",
-    category: "Logo Design",
-    client: "Momentum Fashion",
-    date: "March 2024",
-    tags: ["Logo Design", "Branding", "Fashion", "Modern", "Minimalist"],
-    coverImage: momentum,
-    description: "A sophisticated and contemporary logo design for a premium men's fashion brand. The design embodies modern masculinity while maintaining an air of timeless elegance, perfect for a high-end menswear collection.",
-    galleryImages: [
-      momentum,
-      momentum,
-      momentum,
-      momentum,
-      momentum,
-      momentum
-    ],
-    tools: [
-      "Adobe Illustrator",
-      "Adobe Photoshop",
-      "Figma",
-      "Sketch"
-    ],
-    creativeFields: [
-      "Logo Design",
-      "Brand Identity",
-      "Fashion Design",
-      "Typography",
-      "Visual Design"
-    ],
-    challenge: "Momentum Fashion needed a distinctive brand identity that would appeal to modern, style-conscious men while conveying quality and sophistication. The challenge was to create a logo that would stand out in the competitive fashion market while maintaining versatility across various applications.",
-    solution: "We developed a dynamic abstract mark that combines geometric precision with fluid movement, representing both the brand's name 'Momentum' and its commitment to modern style. The typography was carefully selected and customized to complement the mark, creating a harmonious balance between contemporary design and classic elegance.",
-    results: [
-      "Successfully launched across all brand touchpoints",
-      "Positive feedback from target demographic",
-      "Increased brand recognition in the market",
-      "Versatile application across digital and print media",
-      "Strong foundation for future brand expansion"
-    ],
-    process: [
-      {
-        title: "Research & Discovery",
-        description: "Conducted extensive market research and competitor analysis to identify opportunities in the premium menswear segment."
-      },
-      {
-        title: "Concept Development",
-        description: "Created multiple design concepts focusing on modern minimalism and sophisticated aesthetics."
-      },
-      {
-        title: "Design Refinement",
-        description: "Refined the chosen concept through multiple iterations, perfecting every curve and angle."
-      },
-      {
-        title: "Color Selection",
-        description: "Selected a sophisticated color palette that reflects premium quality and masculinity."
-      },
-      {
-        title: "Typography Integration",
-        description: "Custom-tailored typography to complement the mark and enhance brand recognition."
-      }
-    ]
-  },
   "blood-donation": {
     id: "blood-donation",
     title: "Blood Donation Campaign",
@@ -169,15 +108,37 @@ export const projectsData: Record<string, ProjectType> = {
 
 export const projectsDataArray = [
   {
-    id: "momentum-logo",
-    title: "Momentum Menswear Logo",
-    coverImage: momentum,
-    description: "A modern, stylish logo for a premium menswear brand.",
-    tags: ["Logo", "Fashion", "Minimalist"],
-    client: "Momentum Fashion",
-    date: "2024-03-01",
+    id: "blood-donation",
+    title: "Blood Donation Campaign",
+    coverImage: blooddonation,
+    description: "A compassionate and professional logo design for a blood donation campaign, emphasizing the importance of giving and saving lives.",
+    tags: ["Logo Design", "Healthcare", "Non-profit"],
+    client: "Healthcare Organization",
+    date: "2024",
     category: "Logo Design",
-    galleryImages: [momentum],
+    galleryImages: [blooddonation],
+  },
+  {
+    id: "uniflora",
+    title: "Uniflora - Botanical Brand",
+    coverImage: uniflora,
+    description: "An elegant lettermark logo for a botanical brand, combining natural elements with modern typography.",
+    tags: ["Logo Design", "Nature", "Botanical"],
+    client: "Uniflora Botanicals",
+    date: "2024",
+    category: "Logo Design",
+    galleryImages: [uniflora],
+  },
+  {
+    id: "winnest",
+    title: "Uniflora - Botanical Brand",
+    coverImage: uniflora,
+    description: "An elegant lettermark logo for a botanical brand, combining natural elements with modern typography.",
+    tags: ["Logo Design", "Nature", "Botanical"],
+    client: "Uniflora Botanicals",
+    date: "2024",
+    category: "Logo Design",
+    galleryImages: [winnest],
   },
   {
     id: "modern-business-card",
