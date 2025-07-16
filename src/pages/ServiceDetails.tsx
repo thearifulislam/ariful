@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -21,54 +21,11 @@ import {
 } from "lucide-react";
 // logo design portfolio
 
-// momentum
-import momentum from "../assets/portfolios/logo-design/abstrack-mark/men-fashion/1/1.jpg";
-
-
-
-import blooddonation from "../assets/portfolios/logo-design/combination-mark/health-care-logo/1/1.jpg";
-import uniflora from "../assets/portfolios/logo-design/lettermark-logo/letter-u/1/1.jpg";
-import meloplay from "../assets/portfolios/logo-design/lettermark-logo/letter-mp/1/1.jpg";
-import player from "../assets/portfolios/logo-design/abstrack-mark/player-logo/2/1.jpg";
-import arborsphere from "../assets/portfolios/logo-design/combination-mark/nature-logo/1/1.jpg";
-import wind from "../assets/portfolios/logo-design/lettermark-logo/letter-w/1/1.jpg";
-import zxon from "../assets/portfolios/logo-design/lettermark-logo/letter-z/1/1.jpg";
-import zepeq from "../assets/portfolios/logo-design/lettermark-logo/letter-zpq/1/1.jpg";
-import ecogrow from "../assets/portfolios/logo-design/combination-mark/nature-logo/2/1.jpg";
-import playerlogo from "../assets/portfolios/logo-design/abstrack-mark/player-logo/2/1.jpg";
-import cycle from "../assets/portfolios/logo-design/lettermark-logo/cycle/1.png";
-
-// for business card
-import modernminimalistcamerabusinesscard from "../assets/portfolios/business-card/minimalist/1/1.jpg";
-import modernbusinesscard from "../assets/portfolios/business-card/minimalist/2/1.jpg";
-import minimalistcard from "../assets/portfolios/business-card/minimalist/3/mnvb-24.jpg";
-import professionalcard from "../assets/portfolios/business-card/professional/2/1.jpg";
-import customcard from "../assets/portfolios/business-card/custom/1/1.jpg";
-import moderncard from "../assets/portfolios/business-card/modern/1/1.jpg";
-
-// for letterhead
-import elegantgoldaccentedcorporateletterhead from "../assets/portfolios/letterhead/modern/1/Modern Letterhead.jpg";
-import modernminimalist from "../assets/portfolios/letterhead/modern&minimalist-corporate/1/modern and minimalist corporate letterhead.jpg";
-import corporate from "../assets/portfolios/letterhead/minimalist-corporate/1/3.jpg";
-
-import modern from "../assets/portfolios/letterhead/modern&corporate/1/modern and corporate letterhead design.jpg";
-
-// for banner
-import professionalpromotionalbanner from "../assets/portfolios/banner/promotional/1/1.jpg";
-
-// for social media cover
-import socialmediacoverdesign from "../assets/portfolios/social-cover/facebook-cover/1/1.jpg";
-
-// for background remove
-import imageclippingpath from "../assets/portfolios/background-remove/clipping-path/1/10.jpg";
-
-// for brand guidelines
-import boldpath from "../assets/portfolios/logo-design/brand-guidelines/letter-bp/1/1.jpg";
-import ranova from "../assets/portfolios/logo-design/brand-guidelines/letter-rn/1/1.jpg";
-import nexus from "../assets/portfolios/logo-design/brand-guidelines/letter-n/1/1.jpg";
 
 // Import the portfolio styles for the animated button
 import "../styles/portfolio.css";
+
+import { allProjects } from "../data/allProjects";
 
 const serviceData = {
   "logo-design": {
@@ -150,92 +107,6 @@ const serviceData = {
       "Mockups for Real-World Use",
     ],
     timeframe: "1-2 weeks",
-    portfolios: [
-      {
-        id: "momentum-clothing-brand-for-men",
-        title: "Momentum Menswear – Modern & Stylish Clothing for Men",
-        tags: ["Logo", "Abstract"],
-        image: momentum,
-      },
-      {
-        id: "blood-donation-logo-design",
-        title: "Blood Donation Logo Design",
-        tags: ["Logo", "Blood Donation"],
-        image: blooddonation,
-      },
-      {
-        id: "uniflora-logo-design",
-        title: "Uniflora Logo Design",
-        tags: ["Logo", "Health Care"],
-        image: uniflora,
-      },
-      {
-        id: "ranova-brand-guidelines",
-        title: "Ranova Brand Guidelines",
-        tags: ["Brand Guidelines"],
-        image: ranova,
-      },
-      {
-        id: "boldpath-brand-guidelines",
-        title: "The Guidelines for Bold Path",
-        tags: ["Brand Guidelines"],
-        image: boldpath,
-      },
-      {
-        id: "nexus-brand-guidelines",
-        title: "Nexus Brand Guidelines",
-        tags: ["Brand Guidelines"],
-        image: nexus,
-      },
-      {
-        id: "meloplay-logo-design",
-        title: "Meloplay Logo Design",
-        tags: ["Logo Design"],
-        image: meloplay,
-      },
-      {
-        id: "player-logo-design",
-        title: "Player Logo Design",
-        tags: ["Logo", "Abstract"],
-        image: player,
-      },
-      {
-        id: "arborsphere-logo-design",
-        title: "ArborSphere Logo Design",
-        tags: ["Logo", "Abstrack"],
-        image: arborsphere,
-      },
-      {
-        id: "zxon-logo-design",
-        title: "Zxon Logo Design",
-        tags: ["Logo", "Abstrack"],
-        image: zxon,
-      },
-      {
-        id: "zepeq-logo-design",
-        title: "Zepeq Logo Design",
-        tags: ["Logo", "Abstrack"],
-        image: zepeq,
-      },
-      {
-        id: "ecogrow-logo-design",
-        title: "Ecogrow Logo Design",
-        tags: ["Logo Deisgn", "Lettermark"],
-        image: ecogrow,
-      },
-      {
-        id: "the-player-logo-design",
-        title: "Player Logo Design",
-        tags: ["Logo", "Abstrack"],
-        image: playerlogo,
-      },
-      {
-        id: "cycle-logo-design",
-        title: "Cycle Logo Design",
-        tags: ["Logo", "Lettermark"],
-        image: cycle,
-      },
-    ],
   },
 
   "ui-ux-design": {
@@ -317,20 +188,6 @@ const serviceData = {
       "User Testing Results",
     ],
     timeframe: "2-4 weeks",
-    portfolios: [
-      {
-        id: "momentum-clothing-brand-for-men",
-        title: "Momentum Menswear – Modern & Stylish Clothing for Men",
-        tags: ["UI/UX", "E-commerce"],
-        image: momentum,
-      },
-      {
-        id: "blood-donation-logo-design",
-        title: "Blood Donation App Design",
-        tags: ["UI/UX", "Mobile App"],
-        image: blooddonation,
-      },
-    ],
   },
 
   "web-development": {
@@ -412,20 +269,6 @@ const serviceData = {
       "Training & Support",
     ],
     timeframe: "4-8 weeks",
-    portfolios: [
-      {
-        id: "modern-minimalist-camera-business-card",
-        title: "Modern E-commerce Platform",
-        tags: ["Web Development", "E-commerce"],
-        image: modernminimalistcamerabusinesscard,
-      },
-      {
-        id: "modern-business-card-design",
-        title: "Corporate Website",
-        tags: ["Web Development", "Corporate"],
-        image: modernbusinesscard,
-      },
-    ],
   },
 
   "brand-design": {
@@ -507,26 +350,6 @@ const serviceData = {
       "Brand Application Examples",
     ],
     timeframe: "3-6 weeks",
-    portfolios: [
-      {
-        id: "momentum-clothing-brand-for-men",
-        title: "Momentum Menswear Brand Identity",
-        tags: ["Brand Design", "Fashion"],
-        image: momentum,
-      },
-      {
-        id: "blood-donation-logo-design",
-        title: "Blood Donation Brand Identity",
-        tags: ["Brand Design", "Healthcare"],
-        image: blooddonation,
-      },
-      {
-        id: "ranova-brand-guidelines",
-        title: "Ranova Complete Brand Identity",
-        tags: ["Brand Design", "Guidelines"],
-        image: ranova,
-      },
-    ],
   },
 
   "business-card-design": {
@@ -597,44 +420,6 @@ const serviceData = {
     ],
     deliverables: ["Primary & Secondary Business Card Design (Front & Back)", "Color & Black/White Variations", "SVG/PNG/PDF/EPS Files", "Mini Brand Guidelines Sheet", "Favicon & Social Media Kit", "Mockups for Real-World Use",],
     timeframe: "1-2 weeks",
-    portfolios: [
-      {
-        id: "modern-minimalist-camera-business-card",
-        title: "Modern Minimalist Camera Science Business Card",
-        tags: ["Business card", "Modern"],
-        image: modernminimalistcamerabusinesscard,
-      },
-      {
-        id: "modern-business-card-design",
-        title: "Modern Business Card Design",
-        tags: ["Business Card"],
-        image: modernbusinesscard,
-      },
-      {
-        id: "minimalist-card-design",
-        title: "Minimalist Card Design",
-        tags: ["Business Card"],
-        image: minimalistcard,
-      },
-      {
-        id: "professional-card-design",
-        title: "Professional Card Design",
-        tags: ["Business Card"],
-        image: professionalcard,
-      },
-      {
-        id: "custom-card-design",
-        title: "Custom Card Design",
-        tags: ["Business Card"],
-        image: customcard,
-      },
-      {
-        id: "modern-card-design",
-        title: "Modern Type Business Card Design",
-        tags: ["Business Card", "Modern"],
-        image: moderncard,
-      },
-    ],
   },
 
   "letterhead-design": {
@@ -721,32 +506,6 @@ const serviceData = {
       "Mockups for Presentation",
     ],
     timeframe: "3-5 days",
-    portfolios: [
-      {
-        id: "modern-minimalist-letterhead-design",
-        title: "Modern Minimalist Letterhead Design",
-        tags: ["Letterhead"],
-        image: modernminimalist,
-      },
-      {
-        id: "elegant-gold-accented-corporate-letterhead",
-        title: "Elegant Gold-Accented Corporate Letterhead",
-        tags: ["Letterhead", "Minimalist"],
-        image: elegantgoldaccentedcorporateletterhead,
-      },
-      {
-        id: "corporate-letterhead-design",
-        title: "Corporate Design",
-        tags: ["Letterhead Deisgn", "Corporate"],
-        image: corporate,
-      },
-      {
-        id: "modern-letterhead-design",
-        title: "modern Design",
-        tags: ["Letterhead Deisgn", "Modern"],
-        image: modern,
-      },
-    ],
   },
 
 "brand-guidelines-design": {
@@ -828,26 +587,6 @@ const serviceData = {
     "Documentation for Team/Partners",
   ],
   timeframe: "1-2 weeks",
-  portfolios: [
-    {
-      id: "boldpath-brand-guidelines",
-      title: "The Guidelines for Bold Path",
-      tags: ["Brand Guidelines"],
-      image: boldpath,
-    },
-    {
-      id: "ranova-brand-guidelines",
-      title: "Ranova Brand Guidelines",
-      tags: ["Brand Guidelines"],
-      image: ranova,
-    },
-    {
-      id: "nexus-brand-guidelines",
-      title: "Nexus Brand Guidelines",
-      tags: ["Brand Guidelines"],
-      image: nexus,
-    },
-  ],
 },
 
 
@@ -927,14 +666,6 @@ const serviceData = {
     "Bulk File Packaging & Delivery",
   ],
   timeframe: "24-72 hours (depending on project size)",
-  portfolios: [
-    {
-      id: "image-background-remove-clipping-path",
-      title: "Image Clipping Path",
-      tags: ["Background Remove", "Clipping Path"],
-      image: imageclippingpath,
-    },
-  ],
 },
 
 
@@ -1017,14 +748,6 @@ const serviceData = {
     "Exported for Web, Print, or E-commerce",
   ],
   timeframe: "12-48 hours (depending on volume)",
-  portfolios: [
-    {
-      id: "image-background-remove-clipping-path",
-      title: "Image Clipping Path",
-      tags: ["Background Remove", "Clipping Path"],
-      image: imageclippingpath,
-    },
-    ],
   },
 
 
@@ -1102,9 +825,6 @@ const serviceData = {
     "Folder Organization by Campaign/Platform",
   ],
   timeframe: "2-4 days (depending on quantity)",
-  portfolios: [
-
-  ],
 },
 
 
@@ -1182,9 +902,6 @@ const serviceData = {
     "Organized Export by Usage Type",
   ],
   timeframe: "2-5 days (depending on banner type and quantity)",
-  portfolios: [
-
-  ],
 },
 
 
@@ -1262,9 +979,6 @@ const serviceData = {
     "Organized File Folders for Easy Use",
   ],
   timeframe: "1-3 days (based on quantity and complexity)",
-  portfolios: [
-
-  ],
 },
 
 
@@ -1342,9 +1056,6 @@ const serviceData = {
     "All Icons & Assets Packaged",
   ],
   timeframe: "1-2 days per signature (bulk orders vary)",
-  portfolios: [
-
-  ],
 },
 
 "flyer-design": {
@@ -1421,9 +1132,6 @@ const serviceData = {
     "Mockup Presentation (optional)",
   ],
   timeframe: "1-3 days (depending on complexity)",
-  portfolios: [
-
-  ],
 },
 
 "billboard-design": {
@@ -1500,9 +1208,6 @@ const serviceData = {
     "Digital Format Export (for LED Billboards)",
   ],
   timeframe: "2–4 days (depending on scope)",
-  portfolios: [
-
-  ],
 },
 
 "stationery-design": {
@@ -1579,9 +1284,6 @@ const serviceData = {
     "Multiple Size Options (if needed)",
   ],
   timeframe: "2–5 days (depending on items)",
-  portfolios: [
-
-  ],
 },
 
 "resume-design": {
@@ -1662,14 +1364,29 @@ const serviceData = {
     "Before/After Comparison (if needed)",
   ],
   timeframe: "3–7 days (depending on complexity)",
-  portfolios: [
-
-  ],
 }
 
 
 
 
+};
+
+const serviceCategoryMap: Record<string, string | string[]> = {
+  'logo-design': 'Logo Design',
+  'business-card-design': 'Business Card',
+  'letterhead-design': 'Letterhead',
+  'brand-guidelines-design': 'Brand Guidelines',
+  'image-editing': 'Image Editing',
+  'background-removal': ['Background Removal', 'Clipping Path', 'Image Editing'],
+  'banner-design': 'Banner',
+  'web-banner-design': ['Web Banner', 'Banner'],
+  'brand-design': 'Brand Design',
+  'web-development': 'Web Development',
+  'resume-design': 'Resume',
+  'stationery-design': 'Stationery',
+  'flyer-design': 'Flyer',
+  'billboard-design': 'Billboard',
+  'social-media-post-design': ['Social Media', 'Social Media Post', 'Social Media Design', 'Facebook Cover', 'Cover'],
 };
 
 const ServiceDetails = () => {
@@ -1683,6 +1400,38 @@ const ServiceDetails = () => {
   const service = serviceId
     ? serviceData[serviceId as keyof typeof serviceData]
     : undefined;
+
+  // Dynamically filter projects for this service
+  const relatedProjects = service
+    ? allProjects.filter((project) => {
+        if (serviceId === 'brand-guidelines-design') {
+          // Only include logo projects that are actually Brand Guidelines
+          const brandGuidelinesIds = ['boldpath-brand', 'ranova-brand', 'nexus-tech'];
+          return brandGuidelinesIds.includes(project.id);
+        }
+        const mapVal = serviceCategoryMap[serviceId || ''];
+        if (mapVal) {
+          if (Array.isArray(mapVal)) {
+            return project.category && mapVal.map(v => v.toLowerCase()).includes(project.category.toLowerCase());
+          } else {
+            return project.category && project.category.toLowerCase() === mapVal.toLowerCase();
+          }
+        }
+        // fallback: match by coverText
+        return project.category && project.category.toLowerCase() === service.coverText.toLowerCase();
+      })
+    : [];
+
+  // Search state for filtering related projects
+  const [searchQuery, setSearchQuery] = useState("");
+  const filteredProjects = relatedProjects.filter((item) => {
+    const q = searchQuery.toLowerCase();
+    return (
+      item.title?.toLowerCase().includes(q) ||
+      (item.client && item.client.toLowerCase().includes(q)) ||
+      (item.tags && item.tags.some((tag) => tag.toLowerCase().includes(q)))
+    );
+  });
 
   if (!service) {
     return (
@@ -1940,7 +1689,7 @@ const ServiceDetails = () => {
       </section>
 
       {/* Portfolio Section */}
-      {service.portfolios && service.portfolios.length > 0 && (
+      {relatedProjects.length > 0 && (
         <section className="py-20">
           <div className="container mx-auto px-4 md:px-8">
             <div className="max-w-6xl mx-auto">
@@ -1952,37 +1701,53 @@ const ServiceDetails = () => {
                   Explore our portfolio of successful projects in this category
                 </p>
               </div>
+              {/* Search Bar */}
+              <div className="flex justify-center mb-10">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search projects by title, client, or tag..."
+                  className="w-full max-w-md px-5 py-3 rounded-2xl border border-gray-300 shadow focus:outline-none focus:ring-2 focus:ring-[#1f2937] bg-white/80 text-lg"
+                />
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {service.portfolios.map((item) => (
-                  <Link
-                    key={item.id}
-                    to={`/projects/${item.id}`}
-                    className="group relative bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 border border-white/20"
-                  >
-                    <div className="relative h-64 overflow-hidden">
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <div className="flex flex-wrap gap-2 mb-3">
-                        {item.tags.map((tag, idx) => (
-                          <span
-                            key={idx}
-                            className="px-3 py-1 bg-gradient-to-r from-[#1f2937] to-[#374151] text-white text-xs font-semibold rounded-full"
-                          >
-                            {tag}
-                          </span>
-                        ))}
+                {filteredProjects.length > 0 ? (
+                  filteredProjects.map((item) => (
+                    <Link
+                      key={item.id}
+                      to={item.behanceUrl ? item.behanceUrl : `/projects/${item.id}`}
+                      target={item.behanceUrl ? "_blank" : undefined}
+                      rel={item.behanceUrl ? "noopener noreferrer" : undefined}
+                      className="group relative bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 border border-white/20"
+                    >
+                      <div className="relative h-64 overflow-hidden">
+                        <img
+                          src={item.coverImage}
+                          alt={item.title}
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
                       </div>
-                      <h3 className="font-bold text-gray-900 text-lg mb-3 group-hover:text-[#1f2937] transition-colors">
-                        {item.title}
-                      </h3>
-                    </div>
-                  </Link>
-                ))}
+                      <div className="p-6">
+                        <div className="flex flex-wrap gap-2 mb-3">
+                          {item.tags && item.tags.map((tag, idx) => (
+                            <span
+                              key={idx}
+                              className="px-3 py-1 bg-gradient-to-r from-[#1f2937] to-[#374151] text-white text-xs font-semibold rounded-full"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                        <h3 className="font-bold text-gray-900 text-lg mb-3 group-hover:text-[#1f2937] transition-colors">
+                          {item.title}
+                        </h3>
+                      </div>
+                    </Link>
+                  ))
+                ) : (
+                  <div className="col-span-full text-center text-gray-500 text-lg py-12">No projects found.</div>
+                )}
               </div>
             </div>
           </div>

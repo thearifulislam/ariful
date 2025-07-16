@@ -223,6 +223,7 @@ const PortfolioSection = () => {
       category: "Logo Design",
       tags: ["Logo"],
       image: momentum,
+      behanceUrl: "https://www.behance.net/gallery/213936195/Premium-Logo-Design-for-Modern-Mens-Fashion-Branding",
     },
     {
       id: "modern-minimalist-camera-business-card",
@@ -230,6 +231,7 @@ const PortfolioSection = () => {
       category: "Business Card Design",
       tags: ["Business Card"],
       image: modernminimalistcamerabusinesscard,
+      behanceUrl: "https://www.behance.net/gallery/198717807/music-player-company-logo-mp-logo-design-logo-brand",
     },
     {
       id: "elite-corporate-letterhead",
@@ -237,6 +239,7 @@ const PortfolioSection = () => {
       category: "Letterhead Design",
       tags: ["Letterhead"],
       image: elegantgoldaccentedcorporateletterhead,
+      behanceUrl: "https://www.behance.net/gallery/207494955/Letterhead-Design",
     },
     {
       id: "promotional-banner",
@@ -244,6 +247,7 @@ const PortfolioSection = () => {
       category: "Banner",
       tags: ["Banner"],
       image: professionalpromotionalbanner,
+      behanceUrl: "https://www.behance.net/gallery/208859542/Promotional-Banner-1",
     },
     {
       id: "creative-facebook-cover-design",
@@ -251,6 +255,7 @@ const PortfolioSection = () => {
       category: "Facebook Cover",
       tags: ["Social Media Cover"],
       image: socialmediacoverdesign,
+      behanceUrl: "https://www.behance.net/gallery/208859541/Facebook-Cover-Design-1",
     },
     {
       id: "image-background-remove-clipping-path",
@@ -258,6 +263,7 @@ const PortfolioSection = () => {
       category: "Background Remove",
       tags: ["Image Editing"],
       image: imageclippingpath,
+      behanceUrl: "https://www.behance.net/gallery/208859541/Background-Change-Clipping-Path",
     },
     {
       id: "boldpath-brand-guidelines",
@@ -265,6 +271,7 @@ const PortfolioSection = () => {
       category: "Brand Guidelines",
       tags: ["Brand Guidelines"],
       image: boldpath,
+      behanceUrl: "https://www.behance.net/gallery/226250019/BoldPath-Crafting-Confident-Brands-with-Bold-Vision",
     },
     {
       id: "blood-donation-logo-design",
@@ -272,6 +279,7 @@ const PortfolioSection = () => {
       category: "Logo Design",
       tags: ["Logo"],
       image: blooddonation,
+      behanceUrl: "https://www.behance.net/gallery/129613961/Blood-Donation-Logo-Design-Branding",
     },
     {
       id: "modern-business-card-design",
@@ -279,6 +287,7 @@ const PortfolioSection = () => {
       category: "Business Card",
       tags: ["Business Card"],
       image: modernbusinesscard,
+      behanceUrl: "https://www.behance.net/gallery/198717807/music-player-company-logo-mp-logo-design-logo-brand",
     },
     {
       id: "modern-minimalist-letterhead-design",
@@ -286,6 +295,7 @@ const PortfolioSection = () => {
       category: "Letterhead",
       tags: ["Letterhead"],
       image: modernminimalist,
+      behanceUrl: "https://www.behance.net/gallery/207494955/Letterhead-Design",
     },
     {
       id: "uniflora-logo-design",
@@ -293,6 +303,7 @@ const PortfolioSection = () => {
       category: "Logo Design",
       tags: ["Logo"],
       image: uniflora,
+      behanceUrl: "https://www.behance.net/gallery/194079069/Logo-Logo-design-Brand-identity-Unused-Logo",
     },
     {
       id: "ranova-brand-guidelines",
@@ -300,6 +311,7 @@ const PortfolioSection = () => {
       category: "Brand Guidelines",
       tags: ["Brand Guidelines"],
       image: ranova,
+      behanceUrl: "https://www.behance.net/gallery/226250019/BoldPath-Crafting-Confident-Brands-with-Bold-Vision",
     },
   ];
 
@@ -347,45 +359,52 @@ const PortfolioSection = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {portfolioItems.map((item, index) => (
-            <div
-              key={item.id}
-              ref={(el) => (cardsRef.current[index] = el)}
-              className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2"
-            >
-              <div className="relative aspect-[4/3] overflow-hidden">
-                <Link to={`/projects/${item.id}`}>
+          {portfolioItems.map((item, index) => {
+            const Wrapper = item.behanceUrl
+              ? (props: any) => (
+                  <a
+                    href={item.behanceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    {...props}
+                  />
+                )
+              : (props: any) => <Link to={`/projects/${item.id}`} {...props} />;
+            return (
+              <Wrapper
+                key={item.id}
+                ref={(el: any) => (cardsRef.current[index] = el)}
+                className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2 block"
+                style={{ textDecoration: 'none' }}
+              >
+                <div className="relative aspect-[4/3] overflow-hidden">
                   <img
                     src={item.image}
                     alt={item.title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
-                </Link>
-              </div>
-              
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-900 mb-3 line-clamp-2">
-                  {item.title}
-                </h3>
-                <div className="flex items-center justify-between">
-                  <div className="flex gap-2">
-                    {item.tags.map((tag, i) => (
-                      <span key={i} className="text-xs text-gray-500">
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
-                  <Link 
-                    to={`/projects/${item.id}`}
-                    className="inline-flex items-center gap-2 text-gray-900 hover:text-blue-600 transition-colors"
-                  >
-                    View Details
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
                 </div>
-              </div>
-            </div>
-          ))}
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-3 line-clamp-2">
+                    {item.title}
+                  </h3>
+                  <div className="flex items-center justify-between">
+                    <div className="flex gap-2">
+                      {item.tags.map((tag: string, i: number) => (
+                        <span key={i} className="text-xs text-gray-500">
+                          #{tag}
+                        </span>
+                      ))}
+                    </div>
+                    <span className="inline-flex items-center gap-2 text-gray-900 group-hover:text-blue-600 transition-colors">
+                      View Details
+                      <ArrowRight className="w-4 h-4" />
+                    </span>
+                  </div>
+                </div>
+              </Wrapper>
+            );
+          })}
         </div>
 
         <div className="text-center mt-16">
